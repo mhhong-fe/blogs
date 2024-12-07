@@ -1,8 +1,8 @@
 # 背景
-
-记录对外输出的博客
+本仓库为记录编程、读书笔记而建立
 
 * 图床：https://imgur.com/
-* 编程笔记
-* 读书笔记
-* 其他想记录的内容
+    * 图床整理的文章：https://cloud.tencent.com/developer/article/1401104
+* 编程
+* 读书
+* 其他
