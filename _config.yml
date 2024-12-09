@@ -1,4 +1,4 @@
-title: 动态生成目录示例
+title: 影月的个人博客
 baseurl: "" # 如果托管在子路径中，请填写子路径，如 "/docs-site"
 markdown: kramdown
 plugins:
