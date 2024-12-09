@@ -1,12 +1,55 @@
----
-layout: default
----
-
-<h1>目录</h1>
-<ul>
-  {% for file in site.static_files %}
-    <li>
-      <a href="{{ file.path }}">{{ file.path | remove: '/' }}</a>
-    </li>
-  {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      font-family: Arial, sans-serif;
+    }
+    nav {
+      width: 20%;
+      background-color: #f8f9fa;
+      padding: 1rem;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      height: 100vh;
+      overflow-y: auto;
+    }
+    nav a {
+      display: block;
+      text-decoration: none;
+      color: #333;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 4px;
+    }
+    nav a:hover {
+      background-color: #e9ecef;
+    }
+    main {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+    <nav>
+        <h2>目录</h2>
+        <ul>
+          {% for page in site.pages %}
+            {% if page.path contains "docs" %}
+              <li><a href="{{ page.url }}">{{ page.title | default: page.name }}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </nav>      
+  <main>
+    <h1>欢迎</h1>
+    <p>点击左侧导航栏中的链接查看内容。</p>
+  </main>
+</body>
+</html>
