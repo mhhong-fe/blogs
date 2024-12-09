@@ -1,6 +1,8 @@
 ---
 title: 文档 1
+permalink: /docs/file1
 ---
+
 
 # 文档 1 标题
 
