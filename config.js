@@ -2,7 +2,7 @@ module.exports = {
   "nav": [
     {
       "text": "前端",
-      "link": "/fe/组件/热力图组件"
+      "link": "/fe/工程化/性能优化"
     },
     {
       "text": "后端",
@@ -14,7 +14,7 @@ module.exports = {
     },
     {
       "text": "工具",
-      "link": "/tools/git使用"
+      "link": "/tools/git rebase使用"
     }
   ],
   "sidebar": {
@@ -43,6 +43,16 @@ module.exports = {
     ],
     "/fe/": [
       {
+        "text": "工程化",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "性能优化",
+            "link": "/fe/工程化/性能优化"
+          }
+        ]
+      },
+      {
         "text": "组件",
         "collapsed": true,
         "items": [
@@ -55,8 +65,13 @@ module.exports = {
     ],
     "/tools/": [
       {
-        "text": "git使用",
-        "link": "/tools/git使用"
+        "text": "git",
+        "collapsed": true,
+        "items": []
+      },
+      {
+        "text": "git rebase使用",
+        "link": "/tools/git rebase使用"
       }
     ]
   }
