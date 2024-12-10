@@ -5,6 +5,7 @@ import config from "../config";
 export default defineConfig({
     title: "My Blogs",
     description: "A VitePress Site",
+    base: "/blogs/",
     srcDir: "./docs",
     lastUpdated: true,
     themeConfig: {
