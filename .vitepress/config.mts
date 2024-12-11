@@ -16,7 +16,7 @@ export default defineConfig({
             provider: "local",
         },
         socialLinks: [
-            { icon: "github", link: "https://github.com/vuejs/vitepress" },
+            { icon: "github", link: "https://github.com/mhhong-fe/blogs" },
         ],
     },
 });
