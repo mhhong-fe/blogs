@@ -14,7 +14,7 @@ module.exports = {
     },
     {
       "text": "工具",
-      "link": "/tools/git rebase使用"
+      "link": "/tools/git/git rebase使用"
     }
   ],
   "sidebar": {
@@ -67,11 +67,16 @@ module.exports = {
       {
         "text": "git",
         "collapsed": true,
-        "items": []
-      },
-      {
-        "text": "git rebase使用",
-        "link": "/tools/git rebase使用"
+        "items": [
+          {
+            "text": "git rebase使用",
+            "link": "/tools/git/git rebase使用"
+          },
+          {
+            "text": "github actions",
+            "link": "/tools/git/github actions"
+          }
+        ]
       }
     ]
   }
