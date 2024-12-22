@@ -11,6 +11,8 @@ github actions是github提供的一种便捷的自动化方式，主要流程如
 
 ![Diagram of an event triggering Runner 1 to run Job 1, which triggers Runner 2 to run Job 2. Each of the jobs is broken into multiple steps.](https://docs.github.com/assets/cb-25535/images/help/actions/overview-actions-simple.png)
 
+github actions主要有以下概念：
+
 * workflows(工作流)
 
   * 一个工作流是一个自动化过程的集合，定义了在特定事件发生时要执行的操作。

@@ -1,0 +1,1 @@
+vite中配置px2vw

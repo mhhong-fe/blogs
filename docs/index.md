@@ -15,6 +15,6 @@ features:
   - title: Feature A
     details: 使用vitePress与markdown搭建的ssg网站
   - title: Feature B
-    details: 使用docker与nginx部署在阿里云服务器上
+    details: 使用github pages进行部署
 ---
 

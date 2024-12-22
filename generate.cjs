@@ -67,17 +67,24 @@ function generateSidebar(dirPath, basePath = "") {
  */
 
 function getSortedNav(navList) {
-    const list = ["fe", "backend", "algo", "tools"];
-    const textMap = {
-        fe: "前端",
-        backend: "后端",
-        algo: "算法",
-        tools: "工具",
-    };
-    const res = list.map((item) => {
-        const findItem = navList.find((nav) => nav.text === item);
-        findItem.text = textMap[item];
-        return findItem;
+    const navOrder = [
+        "前端基础",
+        "Vue",
+        "React",
+        "跨端",
+        "后端",
+        "算法",
+        "工具",
+        "其他",
+    ];
+
+    let res = [];
+    navOrder.forEach((item) => {
+        navList.forEach((nav) => {
+            if (nav.text === item) {
+                res.push(nav);
+            }
+        });
     });
     return res;
 }
