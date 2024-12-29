@@ -72,6 +72,7 @@ function getSortedNav(navList) {
         "Vue",
         "React",
         "跨端",
+        "前端工程化",
         "后端",
         "算法",
         "工具",

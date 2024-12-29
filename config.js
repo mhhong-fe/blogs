@@ -10,11 +10,15 @@ module.exports = {
     },
     {
       "text": "React",
-      "link": "/React/index"
+      "link": "/React/react native"
     },
     {
       "text": "跨端",
-      "link": "/跨端/hybrid"
+      "link": "/跨端/移动端设备调试"
+    },
+    {
+      "text": "前端工程化",
+      "link": "/前端工程化/性能优化/性能优化"
     },
     {
       "text": "后端",
@@ -30,11 +34,16 @@ module.exports = {
     },
     {
       "text": "其他",
-      "link": "/其他/句子摘抄"
+      "link": "/其他/TODO"
     }
   ],
   "sidebar": {
-    "/React/": [],
+    "/React/": [
+      {
+        "text": "react native",
+        "link": "/React/react native"
+      }
+    ],
     "/Vue/": [
       {
         "text": "组件",
@@ -49,6 +58,10 @@ module.exports = {
     ],
     "/其他/": [
       {
+        "text": "TODO",
+        "link": "/其他/TODO"
+      },
+      {
         "text": "句子摘抄",
         "link": "/其他/句子摘抄"
       }
@@ -61,33 +74,11 @@ module.exports = {
           {
             "text": "background详解",
             "link": "/前端基础/Css/background详解"
-          },
-          {
-            "text": "border详解",
-            "link": "/前端基础/Css/border详解"
-          },
-          {
-            "text": "less函数的使用",
-            "link": "/前端基础/Css/less函数的使用"
-          },
-          {
-            "text": "postcss",
-            "link": "/前端基础/Css/postcss"
           }
         ]
-      },
-      {
-        "text": "JavaScript",
-        "collapsed": true,
-        "items": []
       }
     ],
     "/前端工程化/": [
-      {
-        "text": "vite",
-        "collapsed": true,
-        "items": []
-      },
       {
         "text": "性能优化",
         "collapsed": true,
@@ -113,7 +104,12 @@ module.exports = {
       {
         "text": "node",
         "collapsed": true,
-        "items": []
+        "items": [
+          {
+            "text": "文件操作",
+            "link": "/后端/node/文件操作"
+          }
+        ]
       }
     ],
     "/工具/": [
@@ -130,10 +126,6 @@ module.exports = {
             "link": "/工具/git/github actions"
           }
         ]
-      },
-      {
-        "text": "whistle的使用",
-        "link": "/工具/whistle的使用"
       }
     ],
     "/算法/": [
@@ -144,8 +136,8 @@ module.exports = {
     ],
     "/跨端/": [
       {
-        "text": "hybrid",
-        "link": "/跨端/hybrid"
+        "text": "移动端设备调试",
+        "link": "/跨端/移动端设备调试"
       }
     ]
   }
