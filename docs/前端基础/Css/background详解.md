@@ -126,25 +126,15 @@ background-position: 25px 75px, 50px 100px;
 
 
 
-## linear-gradient 
-
-线形渐变
-
-
-
- 
 
 # 应用
+待补充
 
 
 
-## 色卡
 
 
 
-## 棋盘
 
 
-
-## 网格
 

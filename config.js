@@ -6,7 +6,7 @@ module.exports = {
     },
     {
       "text": "Vue",
-      "link": "/Vue/组件/热力图组件"
+      "link": "/Vue/原理剖析/源码调试"
     },
     {
       "text": "React",
@@ -46,6 +46,16 @@ module.exports = {
     ],
     "/Vue/": [
       {
+        "text": "原理剖析",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "源码调试",
+            "link": "/Vue/原理剖析/源码调试"
+          }
+        ]
+      },
+      {
         "text": "组件",
         "collapsed": true,
         "items": [
@@ -64,6 +74,10 @@ module.exports = {
       {
         "text": "句子摘抄",
         "link": "/其他/句子摘抄"
+      },
+      {
+        "text": "资源收集",
+        "link": "/其他/资源收集"
       }
     ],
     "/前端基础/": [
