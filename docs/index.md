@@ -9,11 +9,11 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /fe/组件/热力图组件
+      link: /前端基础/Css/css踩坑记录.md
 
 features:
   - title: Feature A
-    details: 文章数量 12
+    details: 文章数量 16
   - title: Feature B
     details: 使用vitePress与markdown搭建的ssg网站
   - title: Feature C
