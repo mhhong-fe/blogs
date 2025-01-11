@@ -88,6 +88,14 @@ module.exports = {
           {
             "text": "background详解",
             "link": "/前端基础/Css/background详解"
+          },
+          {
+            "text": "css开发技巧",
+            "link": "/前端基础/Css/css开发技巧"
+          },
+          {
+            "text": "css踩坑记录",
+            "link": "/前端基础/Css/css踩坑记录"
           }
         ]
       }
