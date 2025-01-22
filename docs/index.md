@@ -1,5 +1,6 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
+
 layout: home
 
 hero:
@@ -13,10 +14,9 @@ hero:
 
 features:
   - title: Feature A
-    details: 文章数量 16
+    details: 文章数量 18
   - title: Feature B
     details: 使用vitePress与markdown搭建的ssg网站
   - title: Feature C
     details: 使用github pages进行部署
 ---
-

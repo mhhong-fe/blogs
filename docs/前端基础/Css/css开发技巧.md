@@ -26,3 +26,23 @@
 
 
 
+# pxtovw
+
+不用库，通过less函数手写px到vw的转换
+
+```less
+// 以720宽度适配的vw距离
+.px2vw(@px) {
+  @design-width: 720;
+  @vw: (@px / @design-width) * 100vw;
+  r: @vw;
+}
+```
+
+使用：
+
+```css
+height: .px2vw(148) [r];
+```
+
+可以配合vscode的代码模版来简化书写
