@@ -148,6 +148,10 @@ module.exports = {
             "link": "/工具/git/github actions"
           }
         ]
+      },
+      {
+        "text": "网站搭建",
+        "link": "/工具/网站搭建"
       }
     ],
     "/算法/": [
@@ -162,6 +166,10 @@ module.exports = {
       {
         "text": "排序",
         "link": "/算法/排序"
+      },
+      {
+        "text": "贪心算法",
+        "link": "/算法/贪心算法"
       }
     ],
     "/跨端/": [
