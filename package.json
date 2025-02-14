@@ -1,7 +1,7 @@
 {
     "scripts": {
         "dev": "vitepress dev",
-        "build": "vitepress build",
+        "build": "node generate.cjs && node countFile.mjs && vitepress build",
         "preview": "vitepress preview",
         "updateNav": "node generate.cjs"
     },
