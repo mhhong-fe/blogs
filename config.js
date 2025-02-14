@@ -64,6 +64,16 @@ module.exports = {
             "link": "/Vue/组件/热力图组件"
           }
         ]
+      },
+      {
+        "text": "问题",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "vue开发疑难杂症",
+            "link": "/Vue/问题/vue开发疑难杂症"
+          }
+        ]
       }
     ],
     "/其他/": [
@@ -160,8 +170,16 @@ module.exports = {
         "link": "/算法/二叉树"
       },
       {
+        "text": "动态规划",
+        "link": "/算法/动态规划"
+      },
+      {
         "text": "堆",
         "link": "/算法/堆"
+      },
+      {
+        "text": "技巧",
+        "link": "/算法/技巧"
       },
       {
         "text": "排序",

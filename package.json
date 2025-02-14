@@ -1,9 +1,9 @@
 {
     "scripts": {
         "dev": "vitepress dev",
-        "build": "node generate.cjs && node countFiles.mjs && vitepress build",
+        "build": "vitepress build",
         "preview": "vitepress preview",
-        "updateNav": "node generate.cjs"
+        "updateNav": "node generate.cjs && node countFiles.mjs"
     },
     "devDependencies": {
         "vitepress": "^1.5.0"
