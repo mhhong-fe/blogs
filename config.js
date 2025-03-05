@@ -14,7 +14,7 @@ module.exports = {
     },
     {
       "text": "跨端",
-      "link": "/跨端/移动端设备调试"
+      "link": "/跨端/h5上的meta"
     },
     {
       "text": "前端工程化",
@@ -191,6 +191,10 @@ module.exports = {
       }
     ],
     "/跨端/": [
+      {
+        "text": "h5上的meta",
+        "link": "/跨端/h5上的meta"
+      },
       {
         "text": "移动端设备调试",
         "link": "/跨端/移动端设备调试"
