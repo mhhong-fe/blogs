@@ -160,6 +160,10 @@ module.exports = {
         ]
       },
       {
+        "text": "whistle",
+        "link": "/工具/whistle"
+      },
+      {
         "text": "网站搭建",
         "link": "/工具/网站搭建"
       }
