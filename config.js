@@ -6,7 +6,7 @@ module.exports = {
     },
     {
       "text": "Vue",
-      "link": "/Vue/原理剖析/源码调试"
+      "link": "/Vue/原理剖析/diff算法的优化"
     },
     {
       "text": "React",
@@ -49,6 +49,10 @@ module.exports = {
         "text": "原理剖析",
         "collapsed": true,
         "items": [
+          {
+            "text": "diff算法的优化",
+            "link": "/Vue/原理剖析/diff算法的优化"
+          },
           {
             "text": "源码调试",
             "link": "/Vue/原理剖析/源码调试"
@@ -106,6 +110,16 @@ module.exports = {
           {
             "text": "css踩坑记录",
             "link": "/前端基础/Css/css踩坑记录"
+          }
+        ]
+      },
+      {
+        "text": "JavaScript",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "疑难杂症",
+            "link": "/前端基础/JavaScript/疑难杂症"
           }
         ]
       }
