@@ -6,7 +6,7 @@ module.exports = {
     },
     {
       "text": "Vue",
-      "link": "/Vue/原理剖析/diff算法的优化"
+      "link": "/Vue/原理剖析/diff算法优化 一"
     },
     {
       "text": "React",
@@ -50,8 +50,12 @@ module.exports = {
         "collapsed": true,
         "items": [
           {
-            "text": "diff算法的优化",
-            "link": "/Vue/原理剖析/diff算法的优化"
+            "text": "diff算法优化 一",
+            "link": "/Vue/原理剖析/diff算法优化 一"
+          },
+          {
+            "text": "diff算法优化 二",
+            "link": "/Vue/原理剖析/diff算法优化 二"
           },
           {
             "text": "源码调试",

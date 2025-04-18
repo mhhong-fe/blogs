@@ -14,7 +14,7 @@ hero:
 
 features:
   - title: Feature A
-    details: 文章数量 27
+    details: 文章数量 28
   - title: Feature B
     details: 使用vitePress与markdown搭建的ssg网站
   - title: Feature C
