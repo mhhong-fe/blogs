@@ -1,7 +1,8 @@
 # 概述
 本文用以介绍vue3 diff算法中使用最长递增子序列进行优化的部分
 
-# 二、最长递增子序列 （Longest Increasing Subsequence, LIS）
+# 最长递增子序列
+（Longest Increasing Subsequence, LIS）
 获取序列中最长递增子序列的算法，完整实现如下：
 ```ts
 /**
@@ -96,5 +97,5 @@ function backtrackSequence(
 ```
 
 
-# 三、vue2和vue3的diff对比
+# vue2和vue3的diff对比
 待补充
