@@ -122,6 +122,10 @@ module.exports = {
         "collapsed": true,
         "items": [
           {
+            "text": "canvas入门学习",
+            "link": "/前端基础/JavaScript/canvas入门学习"
+          },
+          {
             "text": "疑难杂症",
             "link": "/前端基础/JavaScript/疑难杂症"
           }
