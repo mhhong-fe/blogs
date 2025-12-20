@@ -128,6 +128,10 @@ module.exports = {
           {
             "text": "疑难杂症",
             "link": "/前端基础/JavaScript/疑难杂症"
+          },
+          {
+            "text": "视频播放",
+            "link": "/前端基础/JavaScript/视频播放"
           }
         ]
       }
