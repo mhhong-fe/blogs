@@ -126,6 +126,10 @@ module.exports = {
         "collapsed": true,
         "items": [
           {
+            "text": "IntersectionObserver",
+            "link": "/前端基础/JavaScript/IntersectionObserver"
+          },
+          {
             "text": "canvas入门学习",
             "link": "/前端基础/JavaScript/canvas入门学习"
           },
