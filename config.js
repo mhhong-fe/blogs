@@ -58,6 +58,10 @@ module.exports = {
             "link": "/Vue/原理剖析/diff算法优化 二"
           },
           {
+            "text": "vue router原理",
+            "link": "/Vue/原理剖析/vue router原理"
+          },
+          {
             "text": "源码调试",
             "link": "/Vue/原理剖析/源码调试"
           }
