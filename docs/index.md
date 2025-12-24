@@ -16,7 +16,7 @@ hero:
 features:
   - icon: 🎨
     title: 前端基础
-    details: 深入理解 CSS、JavaScript 等前端基础知识，包括 Canvas、Video API、IntersectionObserver 等现代 Web API 的使用与实践
+    details: 文章数量 31
   - icon: ⚡
     title: Vue 原理剖析
     details: 深入分析 Vue 框架的核心原理，包括 diff 算法优化、Vue Router 实现机制等，帮助理解框架底层实现

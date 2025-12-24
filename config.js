@@ -9,10 +9,6 @@ module.exports = {
       "link": "/Vue/原理剖析/diff算法优化 一"
     },
     {
-      "text": "React",
-      "link": "/React/react native"
-    },
-    {
       "text": "跨端",
       "link": "/跨端/h5上的meta"
     },
@@ -38,12 +34,6 @@ module.exports = {
     }
   ],
   "sidebar": {
-    "/React/": [
-      {
-        "text": "react native",
-        "link": "/React/react native"
-      }
-    ],
     "/Vue/": [
       {
         "text": "原理剖析",
