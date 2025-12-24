@@ -1,0 +1,41 @@
+/* 自定义 Hero 区域样式 */
+
+/* 调整 name 字体大小（更大，作为主标题） */
+.VPHomeHero .name {
+  font-size: 64px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0.5em;
+}
+
+/* 调整 text 字体大小（更小，作为副标题） */
+.VPHomeHero .text {
+  font-size: 24px !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
+  opacity: 0.8;
+  margin-top: 0;
+}
+
+/* 移动端响应式调整 */
+@media (max-width: 768px) {
+  .VPHomeHero .name {
+    font-size: 48px !important;
+  }
+  
+  .VPHomeHero .text {
+    font-size: 20px !important;
+  }
+}
+
+/* 小屏幕设备 */
+@media (max-width: 480px) {
+  .VPHomeHero .name {
+    font-size: 36px !important;
+  }
+  
+  .VPHomeHero .text {
+    font-size: 18px !important;
+  }
+}
+

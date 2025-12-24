@@ -1,22 +1,35 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
-
 layout: home
 
 hero:
-  name: "个人博客"
-  # text: "A VitePress Site"
-  tagline: 记录编程、读书的学习笔记
+  name: "个人技术博客"
+  text: "记录编程路上的学习与思考"
+  # tagline: 前端开发  | 工程化实践
   actions:
     - theme: brand
-      text: Get Started
+      text: 开始阅读
       link: /前端基础/Css/css踩坑记录.md
+    - theme: alt
+      text: 查看源码
+      link: https://github.com/mhhong-fe/blogs
 
 features:
-  - title: Feature A
-    details: 文章数量 32
-  - title: Feature B
-    details: 使用vitePress与markdown搭建的ssg网站
-  - title: Feature C
-    details: 使用github pages进行部署
+  - icon: 🎨
+    title: 前端基础
+    details: 深入理解 CSS、JavaScript 等前端基础知识，包括 Canvas、Video API、IntersectionObserver 等现代 Web API 的使用与实践
+  - icon: ⚡
+    title: Vue 原理剖析
+    details: 深入分析 Vue 框架的核心原理，包括 diff 算法优化、Vue Router 实现机制等，帮助理解框架底层实现
+  - icon: 🧮
+    title: 算法学习
+    details: 记录算法学习过程中的思路与解法，涵盖动态规划、贪心算法、二叉树等常见数据结构与算法
+  - icon: 🛠️
+    title: 工程化实践
+    details: 分享前端工程化、性能优化、工具使用等实践经验，提升开发效率与代码质量
+  - icon: 🌐
+    title: 跨端开发
+    details: 记录移动端开发、H5 适配、跨端解决方案等实际项目中的经验与踩坑记录
+  - icon: 💻
+    title: 后端学习
+    details: 学习 Go、Node.js 等后端技术，扩展全栈开发能力
 ---
