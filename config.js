@@ -2,7 +2,7 @@ module.exports = {
   "nav": [
     {
       "text": "前端基础",
-      "link": "/前端基础/Css/background详解"
+      "link": "/前端基础/Css/css开发技巧"
     },
     {
       "text": "Vue",
@@ -10,19 +10,11 @@ module.exports = {
     },
     {
       "text": "跨端",
-      "link": "/跨端/h5上的meta"
+      "link": "/跨端/移动端设备调试"
     },
     {
       "text": "前端工程化",
       "link": "/前端工程化/性能优化/性能优化"
-    },
-    {
-      "text": "后端",
-      "link": "/后端/go/go语言入门"
-    },
-    {
-      "text": "算法",
-      "link": "/算法/二叉树"
     },
     {
       "text": "工具",
@@ -72,8 +64,8 @@ module.exports = {
         "collapsed": true,
         "items": [
           {
-            "text": "vue开发疑难杂症",
-            "link": "/Vue/问题/vue开发疑难杂症"
+            "text": "踩坑记录",
+            "link": "/Vue/问题/踩坑记录"
           }
         ]
       }
@@ -84,12 +76,8 @@ module.exports = {
         "link": "/其他/TODO"
       },
       {
-        "text": "句子摘抄",
-        "link": "/其他/句子摘抄"
-      },
-      {
-        "text": "资源收集",
-        "link": "/其他/资源收集"
+        "text": "资源整理",
+        "link": "/其他/资源整理"
       }
     ],
     "/前端基础/": [
@@ -98,16 +86,12 @@ module.exports = {
         "collapsed": true,
         "items": [
           {
-            "text": "background详解",
-            "link": "/前端基础/Css/background详解"
-          },
-          {
             "text": "css开发技巧",
             "link": "/前端基础/Css/css开发技巧"
           },
           {
-            "text": "css踩坑记录",
-            "link": "/前端基础/Css/css踩坑记录"
+            "text": "踩坑记录",
+            "link": "/前端基础/Css/踩坑记录"
           }
         ]
       },
@@ -118,14 +102,6 @@ module.exports = {
           {
             "text": "IntersectionObserver",
             "link": "/前端基础/JavaScript/IntersectionObserver"
-          },
-          {
-            "text": "canvas入门学习",
-            "link": "/前端基础/JavaScript/canvas入门学习"
-          },
-          {
-            "text": "疑难杂症",
-            "link": "/前端基础/JavaScript/疑难杂症"
           },
           {
             "text": "视频播放",
@@ -142,28 +118,6 @@ module.exports = {
           {
             "text": "性能优化",
             "link": "/前端工程化/性能优化/性能优化"
-          }
-        ]
-      }
-    ],
-    "/后端/": [
-      {
-        "text": "go",
-        "collapsed": true,
-        "items": [
-          {
-            "text": "go语言入门",
-            "link": "/后端/go/go语言入门"
-          }
-        ]
-      },
-      {
-        "text": "node",
-        "collapsed": true,
-        "items": [
-          {
-            "text": "文件操作",
-            "link": "/后端/node/文件操作"
           }
         ]
       }
@@ -192,37 +146,7 @@ module.exports = {
         "link": "/工具/网站搭建"
       }
     ],
-    "/算法/": [
-      {
-        "text": "二叉树",
-        "link": "/算法/二叉树"
-      },
-      {
-        "text": "动态规划",
-        "link": "/算法/动态规划"
-      },
-      {
-        "text": "堆",
-        "link": "/算法/堆"
-      },
-      {
-        "text": "技巧",
-        "link": "/算法/技巧"
-      },
-      {
-        "text": "排序",
-        "link": "/算法/排序"
-      },
-      {
-        "text": "贪心算法",
-        "link": "/算法/贪心算法"
-      }
-    ],
     "/跨端/": [
-      {
-        "text": "h5上的meta",
-        "link": "/跨端/h5上的meta"
-      },
       {
         "text": "移动端设备调试",
         "link": "/跨端/移动端设备调试"

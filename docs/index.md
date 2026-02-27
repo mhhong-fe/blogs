@@ -16,20 +16,11 @@ hero:
 features:
   - icon: 🎨
     title: 前端基础
-    details: 文章数量 31
+    details: 文章数量 18
   - icon: ⚡
-    title: Vue 原理剖析
-    details: 深入分析 Vue 框架的核心原理，包括 diff 算法优化、Vue Router 实现机制等，帮助理解框架底层实现
-  - icon: 🧮
-    title: 算法学习
-    details: 记录算法学习过程中的思路与解法，涵盖动态规划、贪心算法、二叉树等常见数据结构与算法
+    title: 原理剖析
+    details: 深入分析 Vue 框架的核心原理，包括 diff 算法优化、响应式原理等
   - icon: 🛠️
-    title: 工程化实践
-    details: 分享前端工程化、性能优化、工具使用等实践经验，提升开发效率与代码质量
-  - icon: 🌐
-    title: 跨端开发
-    details: 记录移动端开发、H5 适配、跨端解决方案等实际项目中的经验与踩坑记录
-  - icon: 💻
-    title: 后端学习
-    details: 学习 Go、Node.js 等后端技术，扩展全栈开发能力
+    title: 前端工程化
+    details: 记录开发工具、组件封装、复杂功能实现、性能优化等
 ---
