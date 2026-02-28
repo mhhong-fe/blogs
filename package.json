@@ -5,7 +5,7 @@
         "build": "vitepress build",
         "prebuild": "pnpm updateNav",
         "preview": "vitepress preview",
-        "updateNav": "node generate.cjs && node countFiles.mjs",
+        "updateNav": "node generate.cjs",
         "watch:docs": "node scripts/watch.mjs",
         "setup:hooks": "node scripts/setup-hooks.mjs",
         "postinstall": "node scripts/setup-hooks.mjs || true"

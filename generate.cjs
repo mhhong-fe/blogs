@@ -68,14 +68,11 @@ function generateSidebar(dirPath, basePath = "") {
 
 function getSortedNav(navList) {
     const navOrder = [
-        "前端基础",
-        "Vue",
-        "React",
-        "跨端",
-        "前端工程化",
-        "后端",
-        "算法",
-        "工具",
+        "项目实战",
+        "基础知识",
+        "框架应用",
+        "工程化",
+        "工具使用",
         "其他",
     ];
 
@@ -120,7 +117,7 @@ function generateConfig() {
         const dirPath = path.join(docsPath, navItem.text);
         sidebar[`/${navItem.text}/`] = generateSidebar(
             dirPath,
-            `/${navItem.text}`
+            `/${navItem.text}`,
         );
     });
 
@@ -130,7 +127,7 @@ function generateConfig() {
     const configContent = `module.exports = ${JSON.stringify(
         { nav, sidebar },
         null,
-        2
+        2,
     )};\n`;
 
     fs.writeFileSync(outputPath, configContent, "utf8");

@@ -8,19 +8,18 @@ hero:
   actions:
     - theme: brand
       text: 开始阅读
-      link: /前端基础/Css/css踩坑记录.md
+      link: /基础知识/Css/踩坑记录.md
     - theme: alt
       text: 查看源码
       link: https://github.com/mhhong-fe/blogs
 
 features:
   - icon: 🎨
-    title: 文章数量
-    details: 18
+    title: 基础知识
+    details: 记录一些语法、踩坑、调试等基础问题
   - icon: ⚡
     title: 原理剖析
     details: 深入分析 Vue 框架的核心原理，包括 diff 算法优化、响应式原理等
   - icon: 🛠️
     title: 开发实践
-    details: 记录复杂功能实现、踩坑记录、组件封装等
----
+    details: 记录通用组件封装、复杂功能实现等
