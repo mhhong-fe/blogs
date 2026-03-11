@@ -3,8 +3,8 @@ import config from "../config";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-    title: "My Blogs",
-    description: "A VitePress Site",
+    title: "前端工程手记",
+    description: "记录编程路上的学习与思考",
     base: "/blogs/",
     srcDir: "./docs",
     lastUpdated: true,
