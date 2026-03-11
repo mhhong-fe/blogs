@@ -1,15 +1,6 @@
 <template>
   <div class="book-toc">
-    <!-- <div class="book-cover">
-      <h1 class="book-title">{{ bookTitle }}</h1>
-      <p class="book-subtitle">{{ bookSubtitle }}</p>
-    </div> -->
-    
     <div class="book-content">
-      <!-- <div class="toc-header">
-        <h2>目录</h2>
-      </div> -->
-      
       <CatalogTree
         :nodes="tocData"
         :expanded-map="expandedMap"
@@ -28,9 +19,6 @@ import { useData } from 'vitepress'
 import CatalogTree from './CatalogTree.vue'
 
 const { site, theme } = useData()
-
-const bookTitle = computed(() => site.value.title || '前端工程手记')
-const bookSubtitle = computed(() => site.value.description || '记录编程路上的学习与思考')
 
 const tocData = ref([])
 const expandedMap = ref({})
