@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "dev": "vitepress dev",
+        "dev": "vitepress dev --host",
         "predev": "pnpm updateNav",
         "build": "vitepress build",
         "prebuild": "pnpm updateNav",
