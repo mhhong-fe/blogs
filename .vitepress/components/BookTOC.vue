@@ -1,5 +1,9 @@
 <template>
   <div class="book-toc">
+    <div class="page-header">
+      <h1 class="page-title">前端工程实践手记</h1>
+      <p class="page-subtitle">记录编程路上的学习与思考</p>
+    </div>
     <div class="book-content">
       <CatalogTree
         :nodes="tocData"
@@ -95,57 +99,54 @@ function handleNavigate(path) {
 .book-toc {
   max-width: 900px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 40px 24px;
   min-height: calc(100vh - var(--vp-nav-height));
 }
 
-.book-cover {
-  text-align: center;
-  padding: 2rem 0;
-  margin-bottom: 2rem;
+/* 标题区 */
+.page-header {
+  margin-bottom: 28px;
 }
 
-.book-title {
-  font-size: 2.5rem;
-  font-weight: 600;
-  margin: 0 0 0.5rem 0;
-  color: var(--vp-c-text-1);
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+  line-height: 1.3;
+  border: none;
+  padding: 0;
 }
 
-.book-subtitle {
-  font-size: 1rem;
-  color: var(--vp-c-text-2);
+.page-subtitle {
+  font-size: 14px;
+  color: #7C7873;
+  line-height: 1.6;
   margin: 0;
 }
 
+/* 目录卡片 */
 .book-content {
-  background: var(--vp-c-bg);
-  padding: 2rem;
+  background: #FFFFFF;
+  border: 1px solid #E5E2DC;
+  border-radius: 10px;
+  padding: 28px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
-.toc-header {
-  margin-bottom: 2rem;
-}
-
-.toc-header h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 0;
-  color: var(--vp-c-text-1);
-}
-
-/* 响应式设计 */
+/* 响应式 */
 @media (max-width: 768px) {
   .book-toc {
-    padding: 1rem;
+    padding: 24px 16px;
   }
-  
-  .book-title {
-    font-size: 2rem;
+
+  .page-title {
+    font-size: 24px;
   }
-  
+
   .book-content {
-    padding: 1.5rem;
+    padding: 20px;
   }
 }
 </style>

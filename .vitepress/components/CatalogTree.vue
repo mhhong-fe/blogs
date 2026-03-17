@@ -1,5 +1,5 @@
 <template>
-  <ul class="catalog-tree">
+  <ul class="catalog-tree" :class="{ 'root-tree': level === 0 }">
     <li
       v-for="(node, index) in nodes"
       :key="getNodeKey(node, index)"
@@ -114,11 +114,11 @@ const onNodeClick = (node, index) => {
   display: flex;
   align-items: center;
   border-radius: 6px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.15s ease;
 }
 
 .node-row.clickable:hover {
-  background: var(--vp-c-bg-soft);
+  background: #F4F3EE;
 }
 
 .toggle-btn,
@@ -141,27 +141,28 @@ const onNodeClick = (node, index) => {
 .toggle-icon {
   width: 5px;
   height: 5px;
-  border-right: 1px solid var(--vp-c-text-2);
-  border-bottom: 1px solid var(--vp-c-text-2);
+  border-right: 1px solid #B1ADA1;
+  border-bottom: 1px solid #B1ADA1;
   transform: rotate(-45deg);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.15s ease;
 }
 
 .toggle-btn:hover .toggle-icon {
-  border-color: var(--vp-c-brand);
+  border-color: #C15F3C;
 }
 
 .toggle-btn.expanded .toggle-icon {
   transform: rotate(45deg);
 }
 
+/* 叶节点默认样式（所有层级） */
 .node-link {
   width: 100%;
   display: flex;
   align-items: center;
   border: none;
   background: transparent;
-  color: var(--vp-c-text-1);
+  color: #3D3A36;
   cursor: pointer;
   padding: 6px 8px;
   font-size: 15px;
@@ -169,14 +170,27 @@ const onNodeClick = (node, index) => {
   text-align: left;
   border-radius: 6px;
   text-decoration: none;
-  transition: color 0.2s ease, background-color 0.2s ease;
+  transition: color 0.15s ease, background-color 0.15s ease;
 }
 
 .node-link:hover,
 .node-link:active {
-  color: var(--vp-c-brand);
+  color: #111111;
   text-decoration: none;
   background: transparent;
+}
+
+/* 顶级分类标题：锈橙 + 全大写 + 小字 */
+.root-tree > .tree-node > .node-row > .node-link {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #C15F3C;
+}
+
+.root-tree > .tree-node > .node-row > .node-link:hover {
+  color: #A84E30;
 }
 
 .node-title {
@@ -185,12 +199,15 @@ const onNodeClick = (node, index) => {
 
 .node-dash {
   flex: 1;
-  border-bottom: 1px dashed var(--vp-c-divider);
+  border-bottom: 1px dashed #DAD8D3;
   margin: 0 8px;
   transform: translateY(1px);
 }
 
+/* 子树缩进 + 左边线 */
 .catalog-tree .catalog-tree {
   margin-left: 18px;
+  padding-left: 10px;
+  border-left: 1px solid #EBE8E2;
 }
 </style>
