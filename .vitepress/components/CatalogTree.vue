@@ -1,11 +1,11 @@
 <template>
-  <ul class="catalog-tree" :class="{ 'root-tree': level === 0 }">
+  <ul class="catalog-tree">
     <li
       v-for="(node, index) in nodes"
       :key="getNodeKey(node, index)"
       class="tree-node"
     >
-      <div class="node-row" :class="{ clickable: isLinkNode(node) }">
+      <div class="node-row" :class="{ clickable: isArticleNode(node) }">
         <button
           v-if="canExpand(node)"
           class="toggle-btn"
@@ -24,10 +24,11 @@
         >
           <span class="node-title">{{ node.title }}</span>
           <span
-            v-if="isLinkNode(node)"
+            v-if="isArticleNode(node)"
             class="node-dash"
             aria-hidden="true"
           ></span>
+          <span v-if="isArticleNode(node) && node.time" class="node-time">{{ node.time }}</span>
         </button>
       </div>
 
@@ -87,14 +88,20 @@ const isLinkNode = (node) => {
   return !!node.path
 }
 
-const onNodeClick = (node, index) => {
-  if (node.path) {
-    emit('navigate', node.path)
-    return
-  }
+// 文章节点：有路径 且 没有子节点
+const isArticleNode = (node) => {
+  return !!node.path && !canExpand(node)
+}
 
+const onNodeClick = (node, index) => {
+  // 有子节点的目录：只折叠/展开，不跳转
   if (canExpand(node)) {
     emit('toggle', getNodeKey(node, index))
+    return
+  }
+  // 文章节点：跳转
+  if (node.path) {
+    emit('navigate', node.path)
   }
 }
 </script>
@@ -107,7 +114,7 @@ const onNodeClick = (node, index) => {
 }
 
 .tree-node {
-  margin: 2px 0;
+  margin: 1px 0;
 }
 
 .node-row {
@@ -118,14 +125,14 @@ const onNodeClick = (node, index) => {
 }
 
 .node-row.clickable:hover {
-  background: #F4F3EE;
+  background: #f4f3ee;
 }
 
 .toggle-btn,
 .toggle-placeholder {
-  width: 10px;
-  height: 10px;
-  flex: 0 0 10px;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
 }
 
 .toggle-btn {
@@ -141,56 +148,59 @@ const onNodeClick = (node, index) => {
 .toggle-icon {
   width: 5px;
   height: 5px;
-  border-right: 1px solid #B1ADA1;
-  border-bottom: 1px solid #B1ADA1;
+  border-right: 1.5px solid #b1ada1;
+  border-bottom: 1.5px solid #b1ada1;
   transform: rotate(-45deg);
-  transition: transform 0.2s ease, border-color 0.15s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .toggle-btn:hover .toggle-icon {
-  border-color: #C15F3C;
+  border-color: #c15f3c;
 }
 
 .toggle-btn.expanded .toggle-icon {
   transform: rotate(45deg);
 }
 
-/* 叶节点默认样式（所有层级） */
+/* 文章节点 */
 .node-link {
   width: 100%;
   display: flex;
   align-items: center;
   border: none;
   background: transparent;
-  color: #3D3A36;
+  color: #3d3a36;
   cursor: pointer;
-  padding: 6px 8px;
-  font-size: 15px;
-  line-height: 1.5;
+  padding: 5px 8px;
+  font-size: 14px;
+  line-height: 1.6;
   text-align: left;
   border-radius: 6px;
-  text-decoration: none;
-  transition: color 0.15s ease, background-color 0.15s ease;
+  font-family: inherit;
+  transition: color 0.15s ease;
 }
 
-.node-link:hover,
-.node-link:active {
-  color: #111111;
-  text-decoration: none;
-  background: transparent;
+.node-row.clickable .node-link:hover {
+  color: #111;
 }
 
-/* 顶级分类标题：锈橙 + 全大写 + 小字 */
-.root-tree > .tree-node > .node-row > .node-link {
-  font-size: 13px;
+/* 目录标题（无 path，不可跳转） */
+.node-row:not(.clickable) {
+  margin-top: 8px;
+}
+
+.node-row:not(.clickable) .node-link {
+  color: #c15f3c;
   font-weight: 600;
+  font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #C15F3C;
+  cursor: default;
+  padding: 4px 8px;
 }
 
-.root-tree > .tree-node > .node-row > .node-link:hover {
-  color: #A84E30;
+.node-row:not(.clickable) .node-link:hover {
+  color: #c15f3c;
 }
 
 .node-title {
@@ -199,15 +209,25 @@ const onNodeClick = (node, index) => {
 
 .node-dash {
   flex: 1;
-  border-bottom: 1px dashed #DAD8D3;
-  margin: 0 8px;
+  border-bottom: 1px dashed #dedad4;
+  margin: 0 10px;
   transform: translateY(1px);
+}
+
+.node-time {
+  color: #b1ada1;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 /* 子树缩进 + 左边线 */
 .catalog-tree .catalog-tree {
-  margin-left: 18px;
-  padding-left: 10px;
-  border-left: 1px solid #EBE8E2;
+  margin-left: 16px;
+  padding-left: 8px;
+  border-left: 1px solid #ebe8e2;
+  margin-top: 2px;
+  margin-bottom: 4px;
 }
 </style>

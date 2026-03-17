@@ -1,9 +1,10 @@
 <template>
   <div class="book-toc">
-    <div class="page-header">
-      <h1 class="page-title">前端工程实践手记</h1>
-      <p class="page-subtitle">记录编程路上的学习与思考</p>
-    </div>
+    <header class="page-header">
+      <div class="header-badge">前端工程</div>
+      <h1 class="page-title">实践手记</h1>
+      <p class="page-subtitle">整理分类与案例，点击即可进入对应页面</p>
+    </header>
     <div class="book-content">
       <CatalogTree
         :nodes="tocData"
@@ -21,6 +22,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { useData } from 'vitepress'
 import CatalogTree from './CatalogTree.vue'
+import articleDates from '../articleDates.js'
 
 const { site, theme } = useData()
 
@@ -51,8 +53,9 @@ onMounted(() => {
             result.push({
               title: item.text,
               path: item.link,
-              children: item.items && item.items.length > 0 && level < 2 
-                ? processItems(item.items, level + 1) 
+              time: articleDates[item.link] || '',
+              children: item.items && item.items.length > 0 && level < 2
+                ? processItems(item.items, level + 1)
                 : []
             })
           } else if (item.items && item.items.length > 0 && level < 2) {
@@ -105,23 +108,38 @@ function handleNavigate(path) {
 
 /* 标题区 */
 .page-header {
-  margin-bottom: 28px;
+  margin-bottom: 36px;
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #c15f3c;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  padding: 4px 10px;
+  border: 1px solid rgba(193, 95, 60, 0.25);
+  border-radius: 100px;
+  background: rgba(193, 95, 60, 0.06);
 }
 
 .page-title {
-  font-size: 28px;
+  font-size: 34px;
   font-weight: 700;
-  color: #111111;
-  letter-spacing: -0.01em;
-  margin: 0 0 8px;
-  line-height: 1.3;
+  color: #111;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0 0 10px;
   border: none;
   padding: 0;
 }
 
 .page-subtitle {
   font-size: 14px;
-  color: #7C7873;
+  color: #7c7873;
   line-height: 1.6;
   margin: 0;
 }
@@ -142,7 +160,7 @@ function handleNavigate(path) {
   }
 
   .page-title {
-    font-size: 24px;
+    font-size: 28px;
   }
 
   .book-content {

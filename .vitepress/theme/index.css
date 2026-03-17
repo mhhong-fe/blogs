@@ -1,3 +1,9 @@
+/* 首页背景色（layout: page 时 VitePress 渲染 .VPPage） */
+.VPPage {
+  background: #f4f3ee;
+  min-height: 100vh;
+}
+
 /* 自定义 Hero 区域样式 */
 
 /* 调整 name 字体大小（更大，作为主标题） */

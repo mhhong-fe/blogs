@@ -4,7 +4,7 @@ import config from "../config";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
     title: "前端工程实践手记",
-    description: "记录编程路上的学习与思考",
+    description: "",
     base: "/blogs/",
     srcDir: "./docs",
     lastUpdated: true,
