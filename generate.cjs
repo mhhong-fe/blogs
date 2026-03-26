@@ -70,7 +70,7 @@ function getSortedNav(navList) {
     const navOrder = [
         "项目实战",
         "基础知识",
-        "框架应用",
+        "Vue",
         "工程化",
         "工具使用",
         "其他",

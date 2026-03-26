@@ -9,8 +9,8 @@ module.exports = {
       "link": "/基础知识/Css/踩坑记录"
     },
     {
-      "text": "框架应用",
-      "link": "/框架应用/原理剖析/diff算法优化 一"
+      "text": "Vue",
+      "link": "/Vue/Proxy详解"
     },
     {
       "text": "工程化",
@@ -18,10 +18,36 @@ module.exports = {
     },
     {
       "text": "工具使用",
-      "link": "/工具使用/git/git rebase使用"
+      "link": "/工具使用/git rebase使用"
     }
   ],
   "sidebar": {
+    "/Vue/": [
+      {
+        "text": "Proxy详解",
+        "link": "/Vue/Proxy详解"
+      },
+      {
+        "text": "diff算法优化 一",
+        "link": "/Vue/diff算法优化 一"
+      },
+      {
+        "text": "diff算法优化 二",
+        "link": "/Vue/diff算法优化 二"
+      },
+      {
+        "text": "响应系统实现",
+        "link": "/Vue/响应系统实现"
+      },
+      {
+        "text": "框架设计概览",
+        "link": "/Vue/框架设计概览"
+      },
+      {
+        "text": "源码调试",
+        "link": "/Vue/源码调试"
+      }
+    ],
     "/基础知识/": [
       {
         "text": "Css",
@@ -54,18 +80,12 @@ module.exports = {
     ],
     "/工具使用/": [
       {
-        "text": "git",
-        "collapsed": true,
-        "items": [
-          {
-            "text": "git rebase使用",
-            "link": "/工具使用/git/git rebase使用"
-          },
-          {
-            "text": "github actions",
-            "link": "/工具使用/git/github actions"
-          }
-        ]
+        "text": "git rebase使用",
+        "link": "/工具使用/git rebase使用"
+      },
+      {
+        "text": "github actions",
+        "link": "/工具使用/github actions"
       },
       {
         "text": "whistle",
@@ -92,32 +112,15 @@ module.exports = {
         "collapsed": true,
         "items": [
           {
-            "text": "diff算法优化 一",
-            "link": "/框架应用/原理剖析/diff算法优化 一"
-          },
-          {
-            "text": "diff算法优化 二",
-            "link": "/框架应用/原理剖析/diff算法优化 二"
-          },
-          {
             "text": "vue router原理",
             "link": "/框架应用/原理剖析/vue router原理"
-          },
-          {
-            "text": "源码调试",
-            "link": "/框架应用/原理剖析/源码调试"
           }
         ]
       },
       {
         "text": "组件封装",
         "collapsed": true,
-        "items": [
-          {
-            "text": "热力图组件",
-            "link": "/框架应用/组件封装/热力图组件"
-          }
-        ]
+        "items": []
       },
       {
         "text": "问题",
@@ -134,6 +137,10 @@ module.exports = {
       {
         "text": "录音与音频可视化",
         "link": "/项目实战/录音与音频可视化"
+      },
+      {
+        "text": "热力图组件",
+        "link": "/项目实战/热力图组件"
       }
     ]
   }
