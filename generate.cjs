@@ -10,34 +10,59 @@ const outputPath = path.resolve(__dirname, "./config.js"); // 输出配置文件
  * @returns {string} 第一个文件的相对路径（基于文档目录）
  */
 function getFirstFileLink(dirPath) {
-    const files = fs.readdirSync(dirPath);
+    const files = fs.readdirSync(dirPath).sort((a, b) => {
+        const fullA = path.join(dirPath, a);
+        const fullB = path.join(dirPath, b);
+        const isADir = fs.statSync(fullA).isDirectory();
+        const isBDir = fs.statSync(fullB).isDirectory();
+        if (isADir || isBDir) return 0;
+        return parseOrder(fullA) - parseOrder(fullB);
+    });
 
     for (const file of files) {
         const fullPath = path.join(dirPath, file);
         const stat = fs.statSync(fullPath);
 
         if (stat.isFile() && file.endsWith(".md")) {
-            return file.replace(".md", ""); // 返回去掉扩展名的文件路径
+            return file.replace(".md", "");
         }
 
         if (stat.isDirectory()) {
-            const nestedFile = getFirstFileLink(fullPath); // 递归查找子目录
+            const nestedFile = getFirstFileLink(fullPath);
             if (nestedFile) {
                 return `${file}/${nestedFile}`;
             }
         }
     }
 
-    return ""; // 如果没有找到文件，返回空字符串
+    return "";
+}
+
+/**
+ * 读取 markdown 文件 frontmatter 中的 order 字段
+ * 没有 order 则返回 Infinity，排到末尾
+ */
+function parseOrder(filePath) {
+    const content = fs.readFileSync(filePath, "utf8");
+    const match = content.match(/^---[\s\S]*?order:\s*(\d+)[\s\S]*?---/);
+    return match ? parseInt(match[1]) : Infinity;
 }
 
 /**
  * 生成 Sidebar 配置
- * 支持多级嵌套
+ * 支持多级嵌套，按 frontmatter order 字段排序
  */
 function generateSidebar(dirPath, basePath = "") {
     const items = [];
-    const files = fs.readdirSync(dirPath);
+    const files = fs.readdirSync(dirPath).sort((a, b) => {
+        const fullA = path.join(dirPath, a);
+        const fullB = path.join(dirPath, b);
+        const isADir = fs.statSync(fullA).isDirectory();
+        const isBDir = fs.statSync(fullB).isDirectory();
+        // 目录保持原有顺序，只对 md 文件排序
+        if (isADir || isBDir) return 0;
+        return parseOrder(fullA) - parseOrder(fullB);
+    });
 
     files.forEach((file) => {
         const fullPath = path.join(dirPath, file);
@@ -63,45 +88,34 @@ function generateSidebar(dirPath, basePath = "") {
 }
 
 /**
- * nav进行排序
+ * 读取分类目录 index.md 中的 order 字段
+ * 没有 index.md 或没有 order 则返回 Infinity，排到末尾
  */
-
-function getSortedNav(navList) {
-    const navOrder = [
-        "项目实战",
-        "基础知识",
-        "Vue",
-        "工程化",
-        "工具使用",
-        "其他",
-    ];
-
-    let res = [];
-    navOrder.forEach((item) => {
-        navList.forEach((nav) => {
-            if (nav.text === item) {
-                res.push(nav);
-            }
-        });
-    });
-    return res;
+function parseDirOrder(dirPath) {
+    const indexFile = path.join(dirPath, "index.md");
+    if (!fs.existsSync(indexFile)) return Infinity;
+    return parseOrder(indexFile);
 }
 
 /**
  * 生成 Nav 配置
- * 每个一级目录作为 Nav 项目，link 指向第一个文件
+ * 每个一级目录作为 Nav 项目，link 指向第一个文件，按 index.md order 排序
  */
 function generateNav(baseDir) {
-    const dirs = fs.readdirSync(baseDir).filter((file) => {
-        const fullPath = path.join(baseDir, file);
-        return fs.statSync(fullPath).isDirectory();
-    });
+    const dirs = fs.readdirSync(baseDir)
+        .filter((file) => {
+            const fullPath = path.join(baseDir, file);
+            return fs.statSync(fullPath).isDirectory();
+        })
+        .sort((a, b) => {
+            return parseDirOrder(path.join(baseDir, a)) - parseDirOrder(path.join(baseDir, b));
+        });
 
     return dirs.map((dir) => {
         const firstFile = getFirstFileLink(path.join(baseDir, dir));
         return {
             text: dir,
-            link: `/${dir}/${firstFile ? firstFile : ""}`, // 如果没有文件，则指向目录
+            link: `/${dir}/${firstFile ? firstFile : ""}`,
         };
     });
 }
@@ -120,8 +134,6 @@ function generateConfig() {
             `/${navItem.text}`,
         );
     });
-
-    nav = getSortedNav(nav);
 
     // 将配置写入文件
     const configContent = `module.exports = ${JSON.stringify(

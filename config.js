@@ -2,7 +2,7 @@ module.exports = {
   "nav": [
     {
       "text": "项目实战",
-      "link": "/项目实战/录音与音频可视化"
+      "link": "/项目实战/index"
     },
     {
       "text": "基础知识",
@@ -10,7 +10,7 @@ module.exports = {
     },
     {
       "text": "Vue",
-      "link": "/Vue/Proxy详解"
+      "link": "/Vue/框架设计概览"
     },
     {
       "text": "工程化",
@@ -22,30 +22,14 @@ module.exports = {
     }
   ],
   "sidebar": {
-    "/Vue/": [
+    "/项目实战/": [
       {
-        "text": "Proxy详解",
-        "link": "/Vue/Proxy详解"
+        "text": "录音与音频可视化",
+        "link": "/项目实战/录音与音频可视化"
       },
       {
-        "text": "diff算法优化 一",
-        "link": "/Vue/diff算法优化 一"
-      },
-      {
-        "text": "diff算法优化 二",
-        "link": "/Vue/diff算法优化 二"
-      },
-      {
-        "text": "响应系统实现",
-        "link": "/Vue/响应系统实现"
-      },
-      {
-        "text": "框架设计概览",
-        "link": "/Vue/框架设计概览"
-      },
-      {
-        "text": "源码调试",
-        "link": "/Vue/源码调试"
+        "text": "热力图组件",
+        "link": "/项目实战/热力图组件"
       }
     ],
     "/基础知识/": [
@@ -64,12 +48,12 @@ module.exports = {
         "collapsed": true,
         "items": [
           {
-            "text": "IntersectionObserver",
-            "link": "/基础知识/JavaScript/IntersectionObserver"
-          },
-          {
             "text": "视频播放",
             "link": "/基础知识/JavaScript/视频播放"
+          },
+          {
+            "text": "IntersectionObserver",
+            "link": "/基础知识/JavaScript/IntersectionObserver"
           }
         ]
       },
@@ -78,22 +62,38 @@ module.exports = {
         "link": "/基础知识/移动端设备调试"
       }
     ],
-    "/工具使用/": [
+    "/Vue/": [
       {
-        "text": "git rebase使用",
-        "link": "/工具使用/git rebase使用"
+        "text": "框架设计概览",
+        "link": "/Vue/框架设计概览"
       },
       {
-        "text": "github actions",
-        "link": "/工具使用/github actions"
+        "text": "Proxy详解",
+        "link": "/Vue/Proxy详解"
       },
       {
-        "text": "whistle",
-        "link": "/工具使用/whistle"
+        "text": "响应系统实现",
+        "link": "/Vue/响应系统实现"
       },
       {
-        "text": "网站搭建",
-        "link": "/工具使用/网站搭建"
+        "text": "源码调试",
+        "link": "/Vue/源码调试"
+      },
+      {
+        "text": "diff算法优化 一",
+        "link": "/Vue/diff算法优化 一"
+      },
+      {
+        "text": "diff算法优化 二",
+        "link": "/Vue/diff算法优化 二"
+      },
+      {
+        "text": "vue router原理",
+        "link": "/Vue/vue router原理"
+      },
+      {
+        "text": "问题记录",
+        "link": "/Vue/问题记录"
       }
     ],
     "/工程化/": [
@@ -106,41 +106,22 @@ module.exports = {
         "link": "/工程化/性能优化"
       }
     ],
-    "/框架应用/": [
+    "/工具使用/": [
       {
-        "text": "原理剖析",
-        "collapsed": true,
-        "items": [
-          {
-            "text": "vue router原理",
-            "link": "/框架应用/原理剖析/vue router原理"
-          }
-        ]
+        "text": "git rebase使用",
+        "link": "/工具使用/git rebase使用"
       },
       {
-        "text": "组件封装",
-        "collapsed": true,
-        "items": []
+        "text": "github actions",
+        "link": "/工具使用/github actions"
       },
       {
-        "text": "问题",
-        "collapsed": true,
-        "items": [
-          {
-            "text": "踩坑记录",
-            "link": "/框架应用/问题/踩坑记录"
-          }
-        ]
-      }
-    ],
-    "/项目实战/": [
-      {
-        "text": "录音与音频可视化",
-        "link": "/项目实战/录音与音频可视化"
+        "text": "网站搭建",
+        "link": "/工具使用/网站搭建"
       },
       {
-        "text": "热力图组件",
-        "link": "/项目实战/热力图组件"
+        "text": "whistle",
+        "link": "/工具使用/whistle"
       }
     ]
   }

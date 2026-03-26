@@ -1,3 +1,7 @@
+---
+order: 2
+---
+
 # IntersectionObserver API 详解
 
 `IntersectionObserver` 是一个用于异步监听目标元素与其祖先元素或视口（viewport）交叉状态的 API。它可以高效地检测元素是否进入或离开视口，无需频繁计算，性能优异。

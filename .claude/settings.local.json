@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for f:*)",
+      "Bash(do)",
+      "Bash(echo \"=== $f ===\")",
+      "Read(//Users/mhhong/Documents/program/project/vue/blogs/**)",
+      "Bash(done)",
+      "Bash(node generate.cjs)",
+      "Bash(node -e \"const c = require\\('./config.js'\\); console.log\\(JSON.stringify\\(c.sidebar['/Vue/'], null, 2\\)\\)\")",
+      "Bash(node generate.cjs && node -e \"const c = require\\('./config.js'\\); console.log\\(c.nav.map\\(n => n.text\\)\\)\")"
+    ]
+  }
+}
