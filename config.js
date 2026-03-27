@@ -72,8 +72,8 @@ module.exports = {
         "link": "/Vue/Proxy详解"
       },
       {
-        "text": "响应系统实现",
-        "link": "/Vue/响应系统实现"
+        "text": "渐进式实现响应式数据",
+        "link": "/Vue/渐进式实现响应式数据"
       },
       {
         "text": "源码调试",
@@ -94,6 +94,10 @@ module.exports = {
       {
         "text": "问题记录",
         "link": "/Vue/问题记录"
+      },
+      {
+        "text": "响应式api实现",
+        "link": "/Vue/响应式api实现"
       }
     ],
     "/工程化/": [
