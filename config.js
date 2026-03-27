@@ -10,7 +10,7 @@ module.exports = {
     },
     {
       "text": "Vue",
-      "link": "/Vue/框架设计概览"
+      "link": "/Vue/响应系统：Proxy详解"
     },
     {
       "text": "工程化",
@@ -64,28 +64,28 @@ module.exports = {
     ],
     "/Vue/": [
       {
-        "text": "框架设计概览",
-        "link": "/Vue/框架设计概览"
+        "text": "响应系统：Proxy详解",
+        "link": "/Vue/响应系统：Proxy详解"
       },
       {
-        "text": "Proxy详解",
-        "link": "/Vue/Proxy详解"
+        "text": "响应系统：设计与实现",
+        "link": "/Vue/响应系统：设计与实现"
       },
       {
-        "text": "渐进式实现响应式数据",
-        "link": "/Vue/渐进式实现响应式数据"
+        "text": "响应系统：api实现",
+        "link": "/Vue/响应系统：api实现"
+      },
+      {
+        "text": "diff算法：编译优化",
+        "link": "/Vue/diff算法：编译优化"
+      },
+      {
+        "text": "diff算法：最长递增子序列",
+        "link": "/Vue/diff算法：最长递增子序列"
       },
       {
         "text": "源码调试",
         "link": "/Vue/源码调试"
-      },
-      {
-        "text": "diff算法优化 一",
-        "link": "/Vue/diff算法优化 一"
-      },
-      {
-        "text": "diff算法优化 二",
-        "link": "/Vue/diff算法优化 二"
       },
       {
         "text": "vue router原理",
@@ -94,10 +94,6 @@ module.exports = {
       {
         "text": "问题记录",
         "link": "/Vue/问题记录"
-      },
-      {
-        "text": "响应式api实现",
-        "link": "/Vue/响应式api实现"
       }
     ],
     "/工程化/": [

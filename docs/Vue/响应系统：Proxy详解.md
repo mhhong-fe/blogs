@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 1
 ---
 
 # Proxy 详解
@@ -188,8 +188,6 @@ get(target, key, receiver) {
 ```
 
 这样 `p.info` 返回的是 proxy，`p.info.age = 20` 就会触发这个嵌套 proxy 的 `set`。
-
----
 
 ## 五、Proxy vs Object.defineProperty
 
