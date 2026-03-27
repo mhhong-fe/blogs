@@ -414,11 +414,11 @@ function toRef(obj, key) {
   return {
     __v_isRef: true,
     get value() {
-      // 通过 reactive 对象读取，自动触发其 Proxy get 陷阱中的 track
+      // 通过 reactive 对象读取，自动触发其 Proxy get trap中的 track
       return obj[key]
     },
     set value(newVal) {
-      // 通过 reactive 对象写入，自动触发其 Proxy set 陷阱中的 trigger
+      // 通过 reactive 对象写入，自动触发其 Proxy set trap中的 trigger
       obj[key] = newVal
     }
   }
@@ -496,173 +496,19 @@ return proxyRefs({ count, name })
 
 ## 七、更多拦截操作
 
-前文的 `reactive` 实现只覆盖了 `get` 和 `set` 两个陷阱，仅能处理对象属性的基本读写。完整的响应式代理还需要应对 `in` 操作符、键枚举、属性删除、数组变更方法，以及 Map/Set 的内部插槽限制。
+前文的 `reactive` 实现只覆盖了 `get` 和 `set` 两个trap，仅能处理对象属性的基本读写。完整的响应式代理还需要以下trap：
 
-### 7.1 对象的完整拦截
+普通对象还有以下操作：
 
-**`has` 陷阱**：拦截 `in` 操作符
+| trap | 拦截操作 | 处理要点 |
+|------|---------|---------|
+| `has` | `key in obj` | 对 key 执行 track |
+| `ownKeys` | `for...in`、`Object.keys()` | 枚举不针对具体 key，引入 `ITERATE_KEY` 统一追踪；新增/删除属性时触发它 |
+| `deleteProperty` | `delete obj.key` | 删除成功后触发 key 和 `ITERATE_KEY` 的依赖 |
 
-`'foo' in obj` 不触发 `get`，需要通过 `has` 陷阱收集依赖：
 
-```js
-has(target, key) {
-  track(target, key)
-  return Reflect.has(target, key)
-}
-```
-
-**`ownKeys` 陷阱**：拦截键枚举（`for...in`、`Object.keys()`）
-
-键枚举关注的是「对象有哪些属性」，而非某个具体属性的值。为此引入特殊标识 `ITERATE_KEY`，所有枚举操作都追踪到它：
-
-```js
-const ITERATE_KEY = Symbol('iterate')
-
-ownKeys(target) {
-  // 枚举操作不与具体 key 绑定，统一追踪到 ITERATE_KEY
-  track(target, ITERATE_KEY)
-  return Reflect.ownKeys(target)
-}
-```
-
-对应地，`set` 陷阱需要区分「新增属性」和「修改属性」。新增属性改变了键集合，需要额外触发 `ITERATE_KEY` 的依赖：
-
-```js
-set(target, key, newVal, receiver) {
-  const hadKey = Object.prototype.hasOwnProperty.call(target, key)
-  const res = Reflect.set(target, key, newVal, receiver)
-  if (!hadKey) {
-    // 新增属性：键集合发生变化，触发 ITERATE_KEY 依赖
-    trigger(target, ITERATE_KEY)
-  } else {
-    // 修改已有属性：只触发该属性的依赖
-    trigger(target, key)
-  }
-  return res
-}
-```
-
-**`deleteProperty` 陷阱**：拦截 `delete` 操作符
-
-删除属性同样会改变键集合，需要同时触发该属性和 `ITERATE_KEY` 的依赖：
-
-```js
-deleteProperty(target, key) {
-  const hadKey = Object.prototype.hasOwnProperty.call(target, key)
-  const res = Reflect.deleteProperty(target, key)
-  if (res && hadKey) {
-    trigger(target, key)
-    trigger(target, ITERATE_KEY)
-  }
-  return res
-}
-```
-
-### 7.2 数组的特殊处理
-
-**索引赋值与 length 的联动**
-
-当设置的索引 >= 数组当前 `length` 时，赋值会隐式修改 `length`。`set` 陷阱只触发了对应索引的依赖，依赖 `length` 的副作用函数不会重新执行：
-
-```js
-const arr = reactive([1, 2, 3])
-effect(() => console.log(arr.length))  // 收集了对 length 的依赖
-
-arr[5] = 5  // length 3 → 6，但默认 set 只触发 key=5 的依赖，length 依赖未触发
-```
-
-修复：在 `set` 陷阱中检测索引是否超出 `length`，若超出则额外触发 `length` 的依赖：
-
-```js
-set(target, key, newVal, receiver) {
-  const oldLen = Array.isArray(target) ? target.length : undefined
-  const res = Reflect.set(target, key, newVal, receiver)
-  trigger(target, key)
-  if (Array.isArray(target) && Number(key) >= oldLen) {
-    trigger(target, 'length')
-  }
-  return res
-}
-```
-
-**变更方法的副作用问题**
-
-`push`、`pop`、`splice` 等方法内部会**同时读取和写入** `length`，在响应式上下文中触发无限循环：
-
-```
-effect 中执行 arr.push(1)
-  → push 内部读取 arr.length（track，将 effectFn 收入 length 的依赖集合）
-  → push 内部写入 arr[length] 并更新 arr.length
-  → trigger length 的依赖 → effectFn 重新执行 → 再次 push → 无限循环
-```
-
-解决方案：在调用这些方法期间暂停依赖收集，执行完毕后恢复：
-
-```js
-let shouldTrack = true
-
-// track 中检查 shouldTrack
-function track(target, key) {
-  if (!activeEffect || !shouldTrack) return
-  // ...
-}
-
-// 重写会引发问题的数组变更方法
-const arrayInstrumentations = {}
-;['push', 'pop', 'shift', 'unshift', 'splice'].forEach(method => {
-  const originMethod = Array.prototype[method]
-  arrayInstrumentations[method] = function(...args) {
-    shouldTrack = false                      // 暂停 track，避免读取 length 收集依赖
-    const res = originMethod.apply(this, args)
-    shouldTrack = true                       // 恢复 track
-    return res
-  }
-})
-
-// get 陷阱中对数组方法进行拦截，返回重写版本
-get(target, key, receiver) {
-  if (Array.isArray(target) && arrayInstrumentations.hasOwnProperty(key)) {
-    return Reflect.get(arrayInstrumentations, key, receiver)
-  }
-  // ...
-}
-```
-
-### 7.3 Map 与 Set 的代理限制
-
-Map 和 Set 将数据存储在内部插槽（Internal Slot）中，方法执行时要求 `this` 指向原始集合对象，而非 Proxy。直接代理 Map/Set 会抛出错误：
-
-```js
-const m = reactive(new Map([['key', 1]]))
-m.size  // TypeError: Method get Map.prototype.size called on incompatible receiver
-```
-
-原因是 `size` 的 getter 需要访问 `this` 上的 `[[MapData]]` 插槽，Proxy 对象上不存在该插槽。解决方案是在 `get` 陷阱中将方法绑定到原始对象 `target`：
-
-```js
-get(target, key, receiver) {
-  if (key === 'size') {
-    track(target, ITERATE_KEY)
-    return Reflect.get(target, key, target)  // 以 target 为 this，绕过插槽限制
-  }
-  // 其他方法也需要绑定到 target，同时注入自定义的 track/trigger 逻辑
-  return mutableInstrumentations[key]
-    ? mutableInstrumentations[key].bind(target)
-    : Reflect.get(target, key, target)
-}
-```
-
-各方法需要手动实现 track/trigger，核心对应关系如下：
-
-| 方法 | track | trigger |
-|------|-------|---------|
-| `size` | `ITERATE_KEY` | — |
-| `has(key)` | `key` | — |
-| `get(key)` | `key` | — |
-| `forEach` / `keys()` / `values()` | `ITERATE_KEY` | — |
-| `add(value)` | — | `ITERATE_KEY`（新增元素） |
-| `set(key, value)` | — | `key`（修改）或 `ITERATE_KEY`（新增） |
-| `delete(key)` | — | `key` + `ITERATE_KEY` |
+* 数组的操作通常会联动length变化，需要额外处理
+* Map和Set的操作，也另有其他的trap，在此不做说明
 
 ## 八、总结
 
