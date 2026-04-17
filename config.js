@@ -19,6 +19,10 @@ module.exports = {
     {
       "text": "工具使用",
       "link": "/工具使用/git rebase使用"
+    },
+    {
+      "text": "算法",
+      "link": "/算法/排序算法"
     }
   ],
   "sidebar": {
@@ -94,6 +98,16 @@ module.exports = {
       {
         "text": "问题记录",
         "link": "/Vue/问题记录"
+      },
+      {
+        "text": "原理剖析",
+        "collapsed": true,
+        "items": []
+      },
+      {
+        "text": "问题",
+        "collapsed": true,
+        "items": []
       }
     ],
     "/工程化/": [
@@ -122,6 +136,12 @@ module.exports = {
       {
         "text": "whistle",
         "link": "/工具使用/whistle"
+      }
+    ],
+    "/算法/": [
+      {
+        "text": "排序算法",
+        "link": "/算法/排序算法"
       }
     ]
   }
