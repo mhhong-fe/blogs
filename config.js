@@ -2,7 +2,7 @@ module.exports = {
   "nav": [
     {
       "text": "项目实战",
-      "link": "/项目实战/index"
+      "link": "/项目实战/录音与音频可视化"
     },
     {
       "text": "基础知识",

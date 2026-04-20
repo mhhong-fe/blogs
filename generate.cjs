@@ -23,7 +23,7 @@ function getFirstFileLink(dirPath) {
         const fullPath = path.join(dirPath, file);
         const stat = fs.statSync(fullPath);
 
-        if (stat.isFile() && file.endsWith(".md")) {
+        if (stat.isFile() && file.endsWith(".md") && file !== "index.md") {
             return file.replace(".md", "");
         }
 
@@ -102,13 +102,17 @@ function parseDirOrder(dirPath) {
  * 每个一级目录作为 Nav 项目，link 指向第一个文件，按 index.md order 排序
  */
 function generateNav(baseDir) {
-    const dirs = fs.readdirSync(baseDir)
+    const dirs = fs
+        .readdirSync(baseDir)
         .filter((file) => {
             const fullPath = path.join(baseDir, file);
             return fs.statSync(fullPath).isDirectory();
         })
         .sort((a, b) => {
-            return parseDirOrder(path.join(baseDir, a)) - parseDirOrder(path.join(baseDir, b));
+            return (
+                parseDirOrder(path.join(baseDir, a)) -
+                parseDirOrder(path.join(baseDir, b))
+            );
         });
 
     return dirs.map((dir) => {
