@@ -18,7 +18,7 @@ module.exports = {
     },
     {
       "text": "工具使用",
-      "link": "/工具使用/git rebase使用"
+      "link": "/工具使用/github actions"
     },
     {
       "text": "算法",
@@ -34,6 +34,10 @@ module.exports = {
       {
         "text": "热力图组件",
         "link": "/项目实战/热力图组件"
+      },
+      {
+        "text": "通过指令实现登陆鉴权",
+        "link": "/项目实战/通过指令实现登陆鉴权"
       }
     ],
     "/基础知识/": [
@@ -98,16 +102,6 @@ module.exports = {
       {
         "text": "问题记录",
         "link": "/Vue/问题记录"
-      },
-      {
-        "text": "原理剖析",
-        "collapsed": true,
-        "items": []
-      },
-      {
-        "text": "问题",
-        "collapsed": true,
-        "items": []
       }
     ],
     "/工程化/": [
@@ -122,16 +116,12 @@ module.exports = {
     ],
     "/工具使用/": [
       {
-        "text": "git rebase使用",
-        "link": "/工具使用/git rebase使用"
-      },
-      {
         "text": "github actions",
         "link": "/工具使用/github actions"
       },
       {
-        "text": "网站搭建",
-        "link": "/工具使用/网站搭建"
+        "text": "git rebase使用",
+        "link": "/工具使用/git rebase使用"
       },
       {
         "text": "whistle",
