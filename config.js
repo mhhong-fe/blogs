@@ -6,7 +6,7 @@ module.exports = {
     },
     {
       "text": "基础知识",
-      "link": "/基础知识/Canvas功能梳理"
+      "link": "/基础知识/Css踩坑记录"
     },
     {
       "text": "Vue",
@@ -34,22 +34,20 @@ module.exports = {
       {
         "text": "通过指令实现登陆鉴权",
         "link": "/项目实战/通过指令实现登陆鉴权"
+      },
+      {
+        "text": "多人角色头像合成",
+        "link": "/项目实战/多人角色头像合成"
       }
     ],
     "/基础知识/": [
       {
-        "text": "Canvas功能梳理",
-        "link": "/基础知识/Canvas功能梳理"
+        "text": "Css踩坑记录",
+        "link": "/基础知识/Css踩坑记录"
       },
       {
-        "text": "Css",
-        "collapsed": true,
-        "items": [
-          {
-            "text": "踩坑记录",
-            "link": "/基础知识/Css/踩坑记录"
-          }
-        ]
+        "text": "Canvas功能梳理",
+        "link": "/基础知识/Canvas功能梳理"
       },
       {
         "text": "JavaScript",
