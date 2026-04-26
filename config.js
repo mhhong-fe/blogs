@@ -6,7 +6,7 @@ module.exports = {
     },
     {
       "text": "基础知识",
-      "link": "/基础知识/Css/踩坑记录"
+      "link": "/基础知识/Canvas功能梳理"
     },
     {
       "text": "Vue",
@@ -34,13 +34,13 @@ module.exports = {
       {
         "text": "通过指令实现登陆鉴权",
         "link": "/项目实战/通过指令实现登陆鉴权"
-      },
-      {
-        "text": "热力图组件",
-        "link": "/项目实战/热力图组件"
       }
     ],
     "/基础知识/": [
+      {
+        "text": "Canvas功能梳理",
+        "link": "/基础知识/Canvas功能梳理"
+      },
       {
         "text": "Css",
         "collapsed": true,
@@ -122,10 +122,6 @@ module.exports = {
       {
         "text": "git rebase使用",
         "link": "/工具使用/git rebase使用"
-      },
-      {
-        "text": "网站搭建",
-        "link": "/工具使用/网站搭建"
       },
       {
         "text": "whistle",
