@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="408 数据结构：外部排序、置换选择、败者树、多路归并、最佳归并树的交互式教材。">
+<title>外部排序完全指南｜408 数据结构交互教材</title>
+<style>
+:root{--bg:#f7f9fc;--panel:#fff;--panel2:#f1f5fa;--ink:#18283d;--muted:#60718a;--line:#dce5f0;--brand:#2459d3;--brandlight:#eaf0ff;--teal:#07877a;--teallight:#e0f6f2;--amber:#9a5d06;--amberlight:#fff4dc;--red:#b23c45;--redlight:#fff0f1;--shadow:0 8px 32px rgba(26,56,92,.065);--radius:16px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:32px}body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.85}a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}button,select,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #8db3ff;outline-offset:3px}::selection{background:#c5d8ff}.layout{display:grid;grid-template-columns:258px minmax(0,920px);justify-content:center;gap:34px;max-width:1280px;margin:auto;padding:0 24px}.sidebar{position:sticky;top:0;height:100vh;overflow:auto;padding:28px 0 24px;border-right:1px solid var(--line)}.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:16px;margin-bottom:19px}.brand-icon{display:grid;place-items:center;width:37px;height:37px;border-radius:11px;background:var(--brand);color:white}.side-label{font-size:11px;letter-spacing:2px;color:var(--muted);font-weight:800;margin:20px 12px 8px}.toc{display:flex;flex-direction:column;gap:3px;margin-right:20px}.toc a{display:block;padding:6px 12px;border-radius:9px;color:var(--muted);font-size:13px;transition:background .15s}.toc a:hover,.toc a.active{background:var(--brandlight);color:var(--brand);text-decoration:none;font-weight:700}.sidebar-bottom{font-size:12px;color:var(--muted);padding:20px 12px}.main{min-width:0;padding:34px 0 100px}.overline{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--brand)}h1{font-size:clamp(30px,4.4vw,52px);line-height:1.2;letter-spacing:-1.2px;margin:11px 0 16px}h2{font-size:26px;letter-spacing:-.5px;line-height:1.35;margin:0 0 20px}h3{font-size:19px;margin:28px 0 12px}h4{margin:20px 0 8px;font-size:15px}p{margin:11px 0 16px}.lead{font-size:17px;color:var(--muted);max-width:790px}.hero{background:radial-gradient(circle at 95% 10%,#dbe9ff,transparent 43%),var(--panel);border:1px solid var(--line);border-radius:24px;padding:38px 40px;box-shadow:var(--shadow)}.hero-grid{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}.pill{border:1px solid #cadef7;background:#eff5ff;color:#2856a2;border-radius:99px;font-size:12px;font-weight:700;padding:3px 12px}.hero-info{background:var(--brandlight);padding:14px 17px;border-radius:12px;font-size:14px;color:var(--ink)}section.section{padding:48px 0 0;border-top:1px solid var(--line);margin-top:48px}.num{display:inline-grid;place-items:center;font-size:14px;background:var(--brandlight);color:var(--brand);border-radius:10px;width:34px;height:34px;margin-right:8px;vertical-align:3px}.muted{color:var(--muted)}.card{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:22px 24px;margin:18px 0;box-shadow:var(--shadow)}.card>h3:first-child{margin-top:0}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.stat{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:18px}.stat strong{font-size:25px;display:block;line-height:1.5;color:var(--brand)}.stat span{font-size:12px;color:var(--muted)}.callout{margin:18px 0;padding:14px 18px;border-left:4px solid var(--brand);background:var(--brandlight);border-radius:0 12px 12px 0}.callout.good{background:var(--teallight);border-color:var(--teal)}.callout.warn{background:var(--amberlight);border-color:#df951e}.callout.bad{background:var(--redlight);border-color:var(--red)}.callout strong{display:block;margin-bottom:3px}.callout p{margin:3px 0}.formula{padding:18px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);text-align:center;font-size:clamp(16px,2vw,22px);font-family:Georgia,"Times New Roman","STIX Two Math",serif;overflow-x:auto;white-space:nowrap;margin:15px 0}.formula .sub{font-size:.7em;vertical-align:sub}.formula small{font-family:inherit}.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:13px;margin:19px 0;background:var(--panel)}table{border-collapse:collapse;width:100%;font-size:14px;min-width:580px}th,td{text-align:left;border-bottom:1px solid var(--line);padding:11px 14px;vertical-align:top}th{background:var(--panel2);font-weight:800}tr:last-child td{border-bottom:0}td strong{color:var(--brand)}code{font-family:ui-monospace,SFMono-Regular,Consolas,Monaco,monospace;background:var(--panel2);padding:2px 5px;border-radius:5px;font-size:.9em}.code{background:#15263b;color:#eaf1fb;border-radius:13px;padding:20px;overflow:auto;line-height:1.7;font-size:13px}.code code{color:inherit;background:none;padding:0}.code .comment{color:#91c9ae}.diagram{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px;margin:22px 0;overflow:auto}.diagram svg{display:block;width:100%;height:auto;min-width:540px}.diagram figcaption{text-align:center;color:var(--muted);font-size:12px;margin-top:6px}.svg-text{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;fill:var(--ink)}.svg-muted{fill:var(--muted)}.svg-line{stroke:var(--line)}.steps{counter-reset:step;list-style:none;padding-left:0}.steps li{position:relative;margin:0 0 16px;padding:1px 0 2px 42px}.steps li:before{counter-increment:step;content:counter(step);position:absolute;left:0;top:1px;display:grid;place-items:center;width:27px;height:27px;background:var(--brandlight);color:var(--brand);border-radius:8px;font-size:13px;font-weight:800}.interactive{background:var(--panel);border:1px solid #bed0ef;border-radius:18px;padding:23px;margin:24px 0;box-shadow:var(--shadow)}.interactive h3{margin:0 0 6px}.toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:16px 0}.btn{border:1px solid var(--line);padding:8px 15px;border-radius:9px;background:var(--panel);color:var(--ink);font-weight:700;font-size:13px}.btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}.btn:disabled{opacity:.4;cursor:not-allowed}.btn:hover:not(:disabled){filter:brightness(.94)}.toolbar label{font-size:13px;color:var(--muted)}.toolbar select{color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:8px}.lane{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0}.tag{border:1px solid var(--line);padding:3px 8px;border-radius:8px;background:var(--panel2);font-family:ui-monospace,monospace;font-size:13px}.tag.active{background:var(--brandlight);border-color:var(--brand);color:var(--brand);font-weight:800}.tag.output{background:var(--teallight);color:var(--teal);border-color:#a1dcd2}.tag.frozen{background:var(--amberlight);color:var(--amber);border-color:#eec987}.pane{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px}.pane-title{color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:800;font-size:11px;margin-bottom:8px}.small{font-size:13px}.status{min-height:47px;border-radius:9px;padding:10px 13px;color:var(--ink);background:var(--brandlight);font-size:14px;margin-top:12px}.visualgrid{display:grid;grid-template-columns:1fr 1.1fr;gap:14px}.runline{margin:7px 0;display:flex;gap:7px;align-items:center;font-size:13px;flex-wrap:wrap}.run-name{min-width:32px;color:var(--muted);font-weight:800}.winner-wrap svg{width:100%;display:block;max-height:285px}.quiz{border:1px solid var(--line);background:var(--panel);border-radius:13px;padding:18px 20px;margin:13px 0}.quiz summary{font-weight:800;cursor:pointer}.quiz .answer{padding:13px 14px;background:var(--teallight);border-radius:10px;margin-top:12px}.quiz .answer p:last-child{margin-bottom:0}.eq{white-space:nowrap}.kbd{font-size:11px;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:2px 6px}footer{padding:38px 0;color:var(--muted);font-size:13px;text-align:center}.top-actions{display:flex;gap:10px;justify-content:flex-end;margin-bottom:14px}.top-actions button{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:6px 11px;color:var(--muted);font-size:12px}.progress{height:3px;background:var(--brand);position:fixed;top:0;left:0;width:0;z-index:5;pointer-events:none}.mobile-top{display:none}ul,ol{padding-left:23px}li{margin:6px 0}hr{border:0;border-top:1px solid var(--line)}
+@media(max-width:980px){.layout{grid-template-columns:210px minmax(0,1fr);gap:22px;padding:0 18px}.hero{padding:28px}.toc{margin-right:9px}.visualgrid{grid-template-columns:1fr}}
+@media(max-width:720px){.layout{display:block;padding:0 16px}.sidebar{display:none}.main{padding:12px 0 60px}.mobile-top{display:flex;align-items:center;justify-content:space-between;padding:8px 0 12px;font-size:13px;font-weight:700}.mobile-top a{color:var(--brand)}.hero{padding:24px 20px;border-radius:18px}.lead{font-size:15px}h2{font-size:23px}h3{font-size:18px}.grid2,.grid3{grid-template-columns:1fr}.card{padding:18px}.interactive{padding:16px}.stat{padding:13px}.formula{font-size:16px}.diagram{padding:8px}}
+@media print{.sidebar,.mobile-top,.top-actions,.toolbar,.progress{display:none!important}.layout{display:block;padding:0}.main{padding:0}body{background:#fff;font-size:12px}.hero,.card,.interactive,.diagram{box-shadow:none;break-inside:avoid}section.section{padding-top:18px;margin-top:18px}.quiz .answer{display:block}details{open:true}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body.dark{--bg:#101a29;--panel:#172436;--panel2:#1d3048;--ink:#e9f0fa;--muted:#a4b8d1;--line:#30435d;--brand:#89adff;--brandlight:#1d3555;--teal:#72d9c7;--teallight:#173a39;--amber:#f3be68;--amberlight:#4a3923;--red:#f8a9af;--redlight:#472a34;--shadow:none}body.dark .hero{background:radial-gradient(circle at 95% 10%,#244268,transparent 43%),var(--panel)}body.dark .pill{background:#213958;border-color:#36557e;color:#b1ceff}body.dark .btn.primary{background:#416fde;color:#fff}body.dark .code{background:#0c1724}
+</style>
+</head>
+<body>
+<div class="progress" id="readingProgress"></div>
+<div class="layout">
+<aside class="sidebar" aria-label="章节目录">
+  <div class="brand"><span class="brand-icon">408</span><span>数据结构 · 精讲教材</span></div>
+  <div class="side-label">阅读导航</div>
+  <nav class="toc" id="toc">
+    <a href="#overview">00 · 学习路线</a><a href="#core">01 · 为什么需要外部排序</a><a href="#process">02 · 外部排序完整流程</a><a href="#io">03 · 归并趟数与 I/O</a><a href="#multiway">04 · 多路归并</a><a href="#loser">05 · 败者树原理与演示</a><a href="#replacement">06 · 置换—选择排序</a><a href="#optimal">07 · 最佳归并树</a><a href="#problems">08 · 408 典型题</a><a href="#summary">09 · 考前速记</a>
+  </nav>
+  <div class="sidebar-bottom">纯 HTML · 原生 SVG · 原生 JS<br>支持离线查看与 GitHub Pages</div>
+</aside>
+<main class="main" id="main">
+ <div class="mobile-top"><span>📘 408 · 数据结构</span><a href="#summary">跳转速记 ↓</a></div>
+ <div class="top-actions"><button id="themeBtn" type="button">◐ 切换深色模式</button><button id="printBtn" type="button">⎙ 打印 / PDF</button></div>
+ <header class="hero" id="overview">
+  <div class="overline">计算机考研 408 · 数据结构</div>
+  <h1>外部排序<br><span style="color:var(--brand)">从归并到败者树</span></h1>
+  <p class="lead">把“为什么这样做”与“题目怎么算”连起来：初始归并段、k 路归并、I/O 次数、败者树、置换—选择、最佳归并树，一份学透。</p>
+  <div class="hero-grid"><span class="pill">10 个章节</span><span class="pill">2 组交互演示</span><span class="pill">SVG 结构图</span><span class="pill">典型计算题</span><span class="pill">无需外部依赖</span></div>
+  <div class="hero-info"><strong>先记住一句话：</strong>外部排序最核心的目标不是减少比较次数，而是<strong>尽可能减少磁盘读写 I/O</strong>；多路归并减少归并趟数，败者树让多路归并的选最小值更高效。</div>
+ </header>
+
+ <section class="section" id="core">
+  <h2><span class="num">01</span>为什么需要外部排序？</h2>
+  <p>内部排序假定数据基本可以放进内存；外部排序面对的是<strong>数据量远大于可用内存</strong>的情况。例如，一个 100 GB 的文件，内存只有 1 GB，不可能一次把所有记录装进内存排好序。</p>
+  <div class="grid2"><div class="stat"><strong>内部排序</strong><span>数据在内存中，主要关心 CPU 比较、移动成本</span></div><div class="stat"><strong>外部排序</strong><span>数据在外存中，主要关心读入、写回的 I/O 成本</span></div></div>
+  <h3>关键术语</h3>
+  <div class="tablewrap"><table><thead><tr><th>术语</th><th>意义</th><th>考试怎么用</th></tr></thead><tbody>
+  <tr><td>归并段（顺串、run）</td><td>内部已经排好序的连续记录序列</td><td>初始有多少段，决定需要归并多少趟</td></tr>
+  <tr><td>初始归并段</td><td>第一次读入内存、内部排序后写出的有序段</td><td>常规形成方式：每段最多装满内存工作区</td></tr>
+  <tr><td>归并路数 <em>k</em></td><td>一次将至多 k 个有序段合并成一个</td><td>k 越大，通常趟数越少；但需要更多缓冲区</td></tr>
+  <tr><td>一趟归并</td><td>将当前各组归并段各归并一次，产生下一层归并段</td><td>通常每趟对所有记录读一次、写一次</td></tr>
+  <tr><td>缓冲区</td><td>输入与输出数据在内存中的临时存放处</td><td>k 路归并通常至少需 k 个输入缓冲区 + 1 个输出缓冲区</td></tr>
+  </tbody></table></div>
+  <div class="callout warn"><strong>别混淆！</strong><p>“一趟归并”不是“归并一个组”。同一趟中，多组 k 路归并可以依次完成；它们共同构成一层。</p></div>
+ </section>
+
+ <section class="section" id="process">
+  <h2><span class="num">02</span>完整流程：先分段，再反复归并</h2>
+  <ol class="steps"><li><strong>形成初始归并段。</strong>每次从磁盘读入内存能够容纳的数据，采用内部排序（如快速排序）得到一个有序段，再写回外存。</li><li><strong>执行多路归并。</strong>从 k 个已排好序的段各取当前最小候选值，选出最小值写入输出缓冲区；相应输入段补入下一条记录。</li><li><strong>继续下一趟。</strong>把本趟生成的新有序段作为下一趟输入，直到只剩一个有序段。</li></ol>
+  <figure class="diagram"><svg viewBox="0 0 760 380" role="img" aria-label="外部排序两路归并示意：8个初始段，经三趟归并成为1段"><defs><marker id="arrow1" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#8aa2c8"/></marker></defs>
+    <text x="24" y="32" class="svg-text" font-size="15" font-weight="700">8 个初始归并段 → 2 路归并 → 3 趟后得到有序文件</text>
+    <g class="svg-text" font-size="13"><text x="25" y="77" fill="#60718a">初始</text><text x="252" y="77">第 1 趟</text><text x="467" y="77">第 2 趟</text><text x="668" y="77">第 3 趟</text></g>
+    <g fill="#eaf0ff" stroke="#7394d7" stroke-width="1.5">
+      <rect x="65" y="91" width="112" height="26" rx="7"/><rect x="65" y="124" width="112" height="26" rx="7"/><rect x="65" y="157" width="112" height="26" rx="7"/><rect x="65" y="190" width="112" height="26" rx="7"/><rect x="65" y="223" width="112" height="26" rx="7"/><rect x="65" y="256" width="112" height="26" rx="7"/><rect x="65" y="289" width="112" height="26" rx="7"/><rect x="65" y="322" width="112" height="26" rx="7"/>
+    </g>
+    <g fill="#e0f6f2" stroke="#44aa9c" stroke-width="1.5"><rect x="275" y="108" width="112" height="43" rx="8"/><rect x="275" y="174" width="112" height="43" rx="8"/><rect x="275" y="240" width="112" height="43" rx="8"/><rect x="275" y="306" width="112" height="43" rx="8"/></g>
+    <g fill="#fff4dc" stroke="#dfa346" stroke-width="1.5"><rect x="476" y="140" width="115" height="76" rx="9"/><rect x="476" y="271" width="115" height="76" rx="9"/></g>
+    <rect x="651" y="204" width="94" height="80" rx="10" fill="#2459d3"/>
+    <g stroke="#8aa2c8" stroke-width="1.5" fill="none" marker-end="url(#arrow1)"><path d="M177 104 L273 125"/><path d="M177 137 L273 125"/><path d="M177 170 L273 191"/><path d="M177 203 L273 191"/><path d="M177 236 L273 257"/><path d="M177 269 L273 257"/><path d="M177 302 L273 323"/><path d="M177 335 L273 323"/><path d="M387 128 L474 178"/><path d="M387 194 L474 178"/><path d="M387 260 L474 309"/><path d="M387 326 L474 309"/><path d="M591 178 L649 243"/><path d="M591 309 L649 243"/></g>
+    <g class="svg-text" text-anchor="middle" font-size="12"><text x="121" y="109">R1</text><text x="121" y="142">R2</text><text x="121" y="175">R3</text><text x="121" y="208">R4</text><text x="121" y="241">R5</text><text x="121" y="274">R6</text><text x="121" y="307">R7</text><text x="121" y="340">R8</text><text x="331" y="134">R1～R2</text><text x="331" y="200">R3～R4</text><text x="331" y="266">R5～R6</text><text x="331" y="332">R7～R8</text><text x="533" y="182">4 段合并</text><text x="533" y="313">4 段合并</text><text x="698" y="242" fill="#fff" font-weight="700">有序</text><text x="698" y="260" fill="#fff" font-weight="700">文件</text></g>
+  </svg><figcaption>以 8 个初始归并段、2 路归并为例：8 → 4 → 2 → 1。</figcaption></figure>
+  <div class="callout good"><strong>理解这个图就能做第一类题</strong><p>每次一趟归并，段数从 <strong>r</strong> 变成 <strong>⌈r / k⌉</strong>，一直归并到 1 段为止。</p></div>
+ </section>
+
+ <section class="section" id="io">
+  <h2><span class="num">03</span>归并趟数与磁盘 I/O 怎么算？</h2>
+  <h3>① 归并趟数</h3>
+  <p>设初始归并段数为 <em>r</em>、归并路数为 <em>k</em>，且 <em>k ≥ 2</em>。标准 k 路归并从 <em>r</em> 段变成 1 段，所需趟数：</p>
+  <div class="formula"><em>s</em> = ⌈ log<sub>k</sub> <em>r</em> ⌉</div>
+  <p>例如 20 段做 4 路归并：<strong>20 → 5 → 2 → 1</strong>，共 <strong>3 趟</strong>，因为 ⌈log₄20⌉ = 3。</p>
+  <h3>② 总 I/O 量</h3>
+  <p>设总记录量等价于 <em>N</em> 个磁盘块，忽略额外索引、缓冲区碎片和最终输出优化。形成初始归并段要<strong>读 N + 写 N = 2N</strong> 次块 I/O；每一趟完整归并通常也要 <strong>2N</strong> 次块 I/O。</p>
+  <div class="formula">总块 I/O ≈ 2<em>N</em> · (1 + ⌈log<sub>k</sub> <em>r</em>⌉)</div>
+  <p class="muted small">前提：初始有序段由外部文件读入、排序并写出；归并期间每趟所有数据都完整读入并写出，计入最终结果写回。</p>
+  <div class="grid3"><div class="stat"><strong>2N</strong><span>形成初始段</span></div><div class="stat"><strong>2N × s</strong><span>s 趟归并</span></div><div class="stat"><strong>2N(1+s)</strong><span>完整排序总 I/O</span></div></div>
+  <h3>③ 现场计算器</h3>
+  <div class="interactive" id="calcArea"><p class="muted small" style="margin-top:0">只需改变这三个参数，下面会实时显示段数变化与 I/O。</p><div class="toolbar"><label for="calcN">文件块数 N</label><input id="calcN" type="number" min="1" max="100000000" step="1" value="1000" style="width:100px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--panel);color:var(--ink)"><label for="calcR">初始段数 r</label><input id="calcR" type="number" min="1" max="100000" step="1" value="20" style="width:83px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--panel);color:var(--ink)"><label for="calcK">归并路数 k</label><input id="calcK" type="number" min="2" max="1000" step="1" value="4" style="width:78px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--panel);color:var(--ink)"></div><div class="pane" id="calcOutput" aria-live="polite"></div></div>
+  <div class="callout warn"><strong>考题常见陷阱</strong><p>如果题目问<strong>“归并阶段”</strong>的 I/O，就不计形成初始段那一次；如果问<strong>“从原始文件到排序完成”</strong>，才通常把初始段的读写加上。若题目明确采用特定 I/O 优化，以题设为准。</p></div>
+ </section>
+
+ <section class="section" id="multiway">
+  <h2><span class="num">04</span>多路归并为什么可以减少 I/O？</h2>
+  <p>k 越大，一次能合并的段越多，通常归并趟数越少，所以外存读写减少。但同时出现一个问题：<strong>每次从 k 个当前段首值中选出最小值</strong>。</p>
+  <div class="tablewrap"><table><thead><tr><th>选最小值的方法</th><th>一次输出后更新的比较代价</th><th>特点</th></tr></thead><tbody>
+    <tr><td>顺序扫描 k 个段首</td><td>O(k)，通常 k − 1 次比较</td><td>实现简单；路数大时比较多</td></tr>
+    <tr><td>最小堆</td><td>O(log k)</td><td>通用优先队列方案</td></tr>
+    <tr><td><strong>败者树</strong></td><td><strong>O(log k)</strong></td><td>节点保存每次对决的败者，更新路径短</td></tr>
+  </tbody></table></div>
+  <h3>缓冲区也会限制路数</h3>
+  <p>如果可用内存为 <em>M</em> 个块，每个输入缓冲区与输出缓冲区各占 1 块，采用最基础的分配方式：</p>
+  <div class="formula"><em>k</em> + 1 ≤ <em>M</em> &nbsp; ⇒ &nbsp; <em>k</em> ≤ <em>M</em> − 1</div>
+  <p>比如内存能容纳 6 个块，至少留 1 个块作输出缓冲，那么最多可布置 5 个输入缓冲区，即 5 路归并（暂不考虑败者树和其他管理结构的空间开销）。</p>
+  <div class="callout"><strong>为什么不能无脑增大 k？</strong><p>输入缓冲区越多，单个缓冲区可能越小；如果缓冲过小，I/O 请求频繁，实际性能未必继续提高。考试计算题通常按给定条件建立理想模型。</p></div>
+ </section>
+
+ <section class="section" id="loser">
+  <h2><span class="num">05</span>败者树：让多路归并高效选出最小值</h2>
+  <p>想象 4 个有序段同时向外输出。每一轮，各段最前面的元素参加一场淘汰赛，<strong>最小的值获胜</strong>。胜者继续向上比赛，内部节点则记录这一场的<strong>败者</strong>。</p>
+  <div class="callout good"><strong>败者树的核心定义</strong><p>叶子代表各归并段当前候选关键字；每个内部比赛节点保存该轮较大的那个（败者）的段号；整个树的最终优胜者另存。输出优胜者后，只需沿它所在叶子的祖先路径重新比赛。</p></div>
+  <figure class="diagram"><svg viewBox="0 0 760 350" role="img" aria-label="败者树原理示意：四个输入值分别为3、8、2、6，内部节点保留败者，最终冠军为2"><defs><marker id="arr2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#9db1d0"/></marker></defs>
+   <text x="25" y="30" font-size="15" font-weight="700" class="svg-text">四路输入：3、8、2、6（值越小越优）</text>
+   <g fill="none" stroke="#97abc9" stroke-width="2"><path d="M150 260 L258 175 L370 95"/><path d="M290 260 L258 175"/><path d="M475 260 L505 175 L370 95"/><path d="M615 260 L505 175"/></g>
+   <g fill="#eaf0ff" stroke="#4b76c5" stroke-width="2"><rect x="105" y="243" width="89" height="43" rx="10"/><rect x="245" y="243" width="89" height="43" rx="10"/><rect x="430" y="243" width="89" height="43" rx="10"/><rect x="570" y="243" width="89" height="43" rx="10"/></g>
+   <g fill="#fff4dc" stroke="#daa245" stroke-width="2"><rect x="208" y="154" width="99" height="43" rx="10"/><rect x="454" y="154" width="99" height="43" rx="10"/><rect x="320" y="72" width="99" height="43" rx="10"/></g>
+   <g class="svg-text" text-anchor="middle" font-size="16" font-weight="700"><text x="149" y="269">R1 · 3</text><text x="289" y="269">R2 · 8</text><text x="474" y="269">R3 · 2</text><text x="614" y="269">R4 · 6</text><text x="257" y="180">败者 8</text><text x="503" y="180">败者 6</text><text x="370" y="99">败者 3</text></g>
+   <rect x="320" y="5" width="99" height="40" rx="10" fill="#087b6e"/><text x="370" y="30" text-anchor="middle" fill="#fff" font-weight="800" font-size="15">冠军 2</text><path d="M370 45 L370 72" stroke="#0a9e8b" stroke-width="2" stroke-dasharray="4,3"/>
+   <g class="svg-muted" font-size="12"><text x="23" y="323">内部节点记的是“输掉比赛者”，不是这一轮冠军</text><text x="23" y="340">R1 ～ R4 为输入段编号，节点数字表示对应值</text></g>
+  </svg><figcaption>例如：3 打败 8，2 打败 6；2 再打败 3。三个内部节点分别记录 8、6、3；冠军是 2。</figcaption></figure>
+  <h3>动态演示：真正走一遍四路归并</h3>
+  <p>点击<strong>下一步</strong>，每次输出一个最小值，并从对应归并段补入下一个候选。树会重算败者记录，蓝色路径标出需要更新的比赛节点。</p>
+  <div class="interactive" id="mergeInteractive">
+   <h3>四路归并 · 败者树逐步演示</h3><p class="muted small">每行数据已各自有序；所有行合并后成为全局有序序列。</p>
+   <div class="toolbar"><button class="btn primary" id="mergeNext">下一步 →</button><button class="btn" id="mergePrev">← 上一步</button><button class="btn" id="mergeReset">重新开始</button><span class="small muted" id="mergeStepLabel"></span></div>
+   <div class="visualgrid"><div class="pane"><div class="pane-title">输入归并段（当前段首高亮）</div><div id="mergeLanes"></div><div class="pane-title" style="margin-top:15px">已经输出的有序序列</div><div id="mergeOutput" class="lane"></div></div><div class="pane winner-wrap"><div class="pane-title">败者树（内部节点保存败者）</div><svg id="mergeTree" viewBox="0 0 440 292" role="img" aria-label="动态败者树"></svg><div class="small muted" id="mergeTreeCaption"></div></div></div>
+   <div class="status" id="mergeStatus" aria-live="polite"></div>
+  </div>
+  <h3>败者树比较次数</h3>
+  <p>初始建树需要若干次比较；当最小元素输出、对应输入段补入下一个值后，只需要沿高度为 <strong>O(log₂k)</strong> 的路径更新。不必重新扫描全部 k 个候选值。</p>
+  <div class="formula">输出 <em>n</em> 个元素：比较代价约为 O(<em>k</em> + <em>n</em> log <em>k</em>)</div>
+  <p class="muted small">对常见的 2 的幂路数、满二叉比赛结构，初始建树约 k−1 次比较，之后每次更新涉及 log₂k 层；非 2 的幂时树形与实现方式会有差异，但渐近复杂度不变。</p>
+  <h3>它为什么叫“败者树”，不是“胜者树”？</h3>
+  <p>胜者树在内部节点存每场胜者；败者树则把败者留在节点，胜者继续向上，最终冠军单独保存。两者都能做选择树；败者树的结构让沿路径的调整过程很自然，是教材讲 k 路归并时的经典实现。</p>
+  <div class="callout warn"><strong>考试记忆点</strong><p>叶子对应<strong>各路当前候选值</strong>，内部节点保存<strong>败者</strong>，根之外的冠军保存<strong>全局最小值所在的路</strong>。这里比较的是当前值，不是整个归并段的最小/最大范围。</p></div>
+ </section>
+
+ <section class="section" id="replacement">
+  <h2><span class="num">06</span>置换—选择排序：让初始归并段更长</h2>
+  <p>常规初始段生成：内存最多装 <em>M</em> 条记录，一次排序后输出一个长度至多 <em>M</em> 的有序段。所以数据量为 <em>N</em> 条时，通常需要约 <strong>⌈N / M⌉</strong> 个初始段。</p>
+  <p>但如果能边输出最小值、边从输入文件补充新值，就不必每攒满 M 个元素就结束一个归并段。<strong>置换—选择排序（Replacement Selection）</strong>正是利用这个思路。</p>
+  <div class="card"><h3>算法规则</h3><ol class="steps"><li>先在工作区放满 <em>M</em> 条记录；建立最小选择结构（可用败者树/堆）。</li><li>在<strong>未冻结</strong>的候选中选最小值，输出到当前归并段，记为上一输出值 <em>last</em>。</li><li>读入下一条新记录填入空位。若新值 <strong>≥ last</strong>，可以参与当前段后续选择；若新值 <strong>&lt; last</strong>，就先<strong>冻结</strong>，留给下一段。</li><li>当工作区全部候选冻结（或已耗尽）时，当前段结束；解冻剩余记录，开始下一个有序段。</li></ol></div>
+  <div class="interactive">
+   <h3>置换—选择 · 可交互模拟</h3><p class="muted small">工作区容量 M = 3。观察“新读入值小于刚输出值”时，为什么必须冻结。</p>
+   <div class="toolbar"><button class="btn primary" id="replaceNext">下一步 →</button><button class="btn" id="replacePrev">← 上一步</button><button class="btn" id="replaceReset">重新开始</button><span class="small muted" id="replaceStepLabel"></span></div>
+   <div class="pane"><div class="pane-title">原始输入流（将逐个读入）</div><div id="replaceInput" class="lane"></div></div>
+   <div class="pane"><div class="pane-title">内存工作区 · 3 个槽位</div><div id="replaceMemory" class="lane"></div><div class="small muted">蓝色边框＝本轮将选择的候选；黄色＝冻结，不能进入当前段</div></div>
+   <div class="pane"><div class="pane-title">已经产生的初始归并段</div><div id="replaceRuns"></div></div>
+   <div class="status" id="replaceStatus" aria-live="polite"></div>
+  </div>
+  <h3>为什么平均初始段长约为 2M？</h3>
+  <p>当输入关键字近似独立、随机排列且可作常见随机模型近似时，置换—选择通常能产生<strong>平均长度约 2M</strong> 的初始归并段；这不是所有输入都满足的保证。</p>
+  <div class="grid2"><div class="stat"><strong>约 2M</strong><span>随机输入时常见的平均初始段长度</span></div><div class="stat"><strong>最坏可接近 M</strong><span>严格递减输入等不利情形</span></div></div>
+  <div class="callout bad"><strong>高频判断题陷阱</strong><p>“置换—选择生成的初始归并段长度恒为 2M”是<strong>错的</strong>。长度随输入顺序变化；递增输入可以形成很长的段，递减输入的段会较短。</p></div>
+ </section>
+
+ <section class="section" id="optimal">
+  <h2><span class="num">07</span>最佳归并树：长度不等时怎样更省 I/O？</h2>
+  <p>如果初始归并段长度不同，一味按固定顺序归并可能使某些长段被重复读写很多次。最佳归并树的核心原则是：<strong>尽量让短段归并得更深、长段归并得更浅</strong>，使总加权路径长度最小。</p>
+  <div class="formula">WPL = Σ (叶子归并段长度 × 该叶子深度)</div>
+  <p>在每个内部归并节点都需要把其输入记录完整读入、再写出一个新归并段的模型下：</p>
+  <div class="formula">归并阶段块 I/O = 2 × WPL</div>
+  <p class="muted small">这里叶子长度统一按磁盘块数计算；若题目按记录数给出，先确认每块可存的记录数。公式通常不包含初始段生成成本。</p>
+  <h3>如何构造 k 路最佳归并树？</h3>
+  <ol class="steps"><li>取当前<strong>最短的 k 个</strong>归并段合并成一个新段，新段长度等于它们的长度之和。</li><li>将新段重新放回待归并段集合。</li><li>重复直到只剩一个根节点；如果不足以形成满 k 叉树，可能需要加入长度为 0 的<strong>虚段</strong>。</li></ol>
+  <div class="callout"><strong>虚段个数怎么求？</strong><p>一棵满 k 叉归并树的叶子数 L 满足 <strong>(L − 1) 能被 (k − 1) 整除</strong>。若实际有 r 个初始段，就补最少的 0 长度虚段，使 r+d 满足这一条件。</p></div>
+  <div class="formula"><em>d</em> = ((<em>k</em>−1) − ((<em>r</em>−1) mod (<em>k</em>−1))) mod (<em>k</em>−1)</div>
+  <div class="card"><h3>经典例题：三路归并 4 个不等长段</h3><p>长度分别为 <strong>2、3、6、9</strong>（单位：块），归并路数 <strong>k = 3</strong>。</p>
+   <p>由于 (4−1) mod (3−1) = 1，补 <strong>1 个长度为 0 的虚段</strong>。于是：0、2、3、6、9。</p>
+   <ol><li>先合并 <strong>0 + 2 + 3 = 5</strong>，I/O 贡献 2×5 = 10。</li><li>再合并 <strong>5 + 6 + 9 = 20</strong>，I/O 贡献 2×20 = 40。</li><li>总归并 I/O = <strong>50 次</strong>（块读写合计）。</li></ol>
+   <figure class="diagram"><svg viewBox="0 0 660 260" role="img" aria-label="三路最佳归并树：0、2、3先合成5，再与6、9合成20"><g stroke="#8da7c5" stroke-width="2" fill="none"><path d="M330 63 L156 134 M330 63 L405 134 M330 63 L555 134 M156 134 L75 208 M156 134 L155 208 M156 134 L235 208"/></g><g fill="#eaf0ff" stroke="#7295db" stroke-width="2"><rect x="290" y="24" width="80" height="42" rx="10"/><rect x="117" y="113" width="78" height="42" rx="10"/><rect x="365" y="113" width="78" height="42" rx="10"/><rect x="516" y="113" width="78" height="42" rx="10"/><rect x="38" y="187" width="75" height="42" rx="10"/><rect x="118" y="187" width="75" height="42" rx="10"/><rect x="198" y="187" width="75" height="42" rx="10"/></g><g class="svg-text" text-anchor="middle" font-size="17" font-weight="800"><text x="330" y="51">20</text><text x="156" y="140">5</text><text x="405" y="140">6</text><text x="555" y="140">9</text><text x="75" y="214">0</text><text x="155" y="214">2</text><text x="235" y="214">3</text></g><text x="75" y="247" class="svg-muted" font-size="12" text-anchor="middle">虚段</text><text x="476" y="242" class="svg-muted" font-size="13">WPL = 5 + 20 = 25</text></svg><figcaption>每个内部节点的权重就是该次归并的输出段长度，全部内部节点权重之和 = WPL。</figcaption></figure>
+  </div>
+  <div class="callout warn"><strong>别把“最少归并趟数”和“最小总 I/O”混为一谈</strong><p>固定长度的段通常关注按 k 路归并压缩层数；<strong>段长度不相等</strong>时，应该进一步考虑最佳归并树，使长段尽可能少参与重复读写。</p></div>
+ </section>
+
+ <section class="section" id="problems">
+  <h2><span class="num">08</span>408 典型题型：一题一题拆开</h2>
+  <p class="muted">先独立作答，再展开解析。题目为教材自编典型题，并非对某年真题原文的复现。</p>
+  <details class="quiz"><summary>题 1 · 归并趟数：18 个初始段，3 路归并，需要几趟？</summary><div class="answer"><p>段数变化：<strong>18 → 6 → 2 → 1</strong>，因此需要 <strong>3 趟</strong>。</p><p>套公式：⌈log₃18⌉ = ⌈2.63…⌉ = 3。注意尾部不足 3 个段也可以合并。</p></div></details>
+  <details class="quiz"><summary>题 2 · I/O：文件 600 块，初始 12 段，3 路归并，完整排序读写多少块？</summary><div class="answer"><p>段数：12 → 4 → 2 → 1，共 3 趟。</p><p>初始段生成读写：2×600 = 1200 次；归并阶段：3×2×600 = 3600 次；<strong>总计 4800 次块 I/O</strong>。</p><p>如果题目只问归并阶段，则答 <strong>3600 次</strong>。</p></div></details>
+  <details class="quiz"><summary>题 3 · 缓冲区：共 9 个相同大小的块缓冲区，基础归并至多几路？</summary><div class="answer"><p>至少保留一个输出缓冲区，其余用于输入，因此<strong>最多 8 路</strong>。依据 k+1 ≤ 9。</p><p>真实系统还有管理开销和性能权衡；考试按题设给定缓冲模型即可。</p></div></details>
+  <details class="quiz"><summary>题 4 · 败者树：8 路归并，输出一个记录后需调整多少层？</summary><div class="answer"><p>满二叉比赛结构的高度为 log₂8 = <strong>3 层</strong>，因此从胜者对应叶子至根方向，更新路径上约需 3 次关键字比较。</p><p>与顺序扫描每次需要 7 次比较形成对比。</p></div></details>
+  <details class="quiz"><summary>题 5 · 置换选择：M = 4，能否保证每个初始段有 8 条记录？</summary><div class="answer"><p><strong>不能。</strong>“2M”是某类随机输入模型下的平均长度经验结论，不是确定长度。若输入严格递减，很多新值会被冻结，段长可能接近 M。</p></div></details>
+  <details class="quiz"><summary>题 6 · 最佳归并树：5 个初始段做 3 路归并，需要补几个虚段？</summary><div class="answer"><p>满 3 叉树叶子总数 L 应满足 (L−1) mod 2 = 0。实际 r=5，(5−1) mod 2=0，所以<strong>不需要补虚段</strong>。</p><p>对比 r=4 时，要补 1 个 0 长度虚段。</p></div></details>
+  <details class="quiz"><summary>题 7 · 综合比较：为什么不能简单说“败者树能减少磁盘 I/O”？</summary><div class="answer"><p>败者树主要优化<strong>内存中选出 k 个段首最小值时的比较代价</strong>，将每次选择从 O(k) 改进到 O(log k)。</p><p><strong>增加归并路数 k</strong>能减少归并趟数，从而间接减少 I/O；败者树让较大 k 的归并在 CPU 比较方面更可行。二者作用不同，不应混为一谈。</p></div></details>
+  <h3>答题时最容易混淆的三组概念</h3>
+  <div class="tablewrap"><table><thead><tr><th>容易混淆</th><th>正确区分</th></tr></thead><tbody><tr><td>归并趟数 vs 总扫描次数</td><td>前者不含形成初始段；后者如计入初始段生成，则一般是 1 + 归并趟数</td></tr><tr><td>败者树 vs 最佳归并树</td><td>败者树解决<strong>每次如何选最小值</strong>；最佳归并树解决<strong>不同长度的段按什么次序合并</strong></td></tr><tr><td>置换—选择 vs k 路归并</td><td>置换—选择用于<strong>形成初始段</strong>；k 路归并用于<strong>将已有初始段合并成大段</strong></td></tr></tbody></table></div>
+ </section>
+
+ <section class="section" id="summary">
+  <h2><span class="num">09</span>考前 60 秒速记</h2>
+  <div class="card"><h3>一张表背下核心结论</h3><div class="tablewrap"><table><thead><tr><th>考点</th><th>结论</th></tr></thead><tbody><tr><td>外部排序目标</td><td>减少磁盘读写 I/O</td></tr><tr><td>k 路归并趟数</td><td><strong>⌈logₖ r⌉</strong></td></tr><tr><td>单趟 I/O</td><td>通常 <strong>2N</strong> 次块读写</td></tr><tr><td>含初始段的总 I/O</td><td><strong>2N × (1 + ⌈logₖ r⌉)</strong></td></tr><tr><td>缓冲区限制</td><td>基础模型：<strong>k+1 ≤ M</strong>（块）</td></tr><tr><td>败者树</td><td>内部存败者，冠军另存；更新 <strong>O(log k)</strong></td></tr><tr><td>置换—选择</td><td>随机模型平均初始段长约 <strong>2M</strong>，不保证</td></tr><tr><td>最佳归并树</td><td>最短的 k 段优先合并；必要时补 <strong>0 长度虚段</strong></td></tr><tr><td>最佳归并树 I/O</td><td>标准模型下 <strong>2 × WPL</strong></td></tr></tbody></table></div></div>
+  <div class="callout good"><strong>遇到新的外部排序题，先判断它在问哪个环节</strong><p><strong>初始段：</strong>普通分段还是置换—选择？<br><strong>归并：</strong>给多少段、多少路、几趟、多少 I/O？<br><strong>选最小：</strong>败者树如何比较、如何更新？<br><strong>长度不等：</strong>要不要最佳归并树、要补几个虚段？</p></div>
+  <p class="muted small">学习建议：第一次读完后，返回两个交互演示各走完一遍，再独立完成典型题 1、2、4、6、7。能解释“为什么”，比单背公式更稳。</p>
+ </section>
+ <footer>408 数据结构 · 外部排序交互教材 ｜ 原生 HTML / SVG / JavaScript ｜ 单文件可离线阅读、可直接发布到 GitHub Pages</footer>
+</main></div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const makeTag=(txt,cls='')=>`<span class="tag ${cls}">${txt}</span>`;
+function safeNumber(id,min,max){const n=Number($(id).value);return Number.isFinite(n)?Math.max(min,Math.min(max,Math.floor(n))):min}
+function calc(){let N=safeNumber('calcN',1,100000000),r=safeNumber('calcR',1,100000),k=safeNumber('calcK',2,1000),arr=[r],v=r;while(v>1){v=Math.ceil(v/k);arr.push(v)}let s=arr.length-1;const format=n=>n.toLocaleString('zh-CN');$('calcOutput').innerHTML=`<div class="pane-title">归并段数变化</div><div class="lane">${arr.map((x,i)=>makeTag(format(x),i===arr.length-1?'output':'')).join('<span class="muted">→</span>')}</div><p style="margin:8px 0 3px"><strong>${s} 趟归并</strong>；归并阶段 I/O：<strong>${format(2*N*s)}</strong> 次块读写；含初始段生成的总 I/O：<strong>${format(2*N*(s+1))}</strong> 次。</p><p class="muted small" style="margin:0">每趟假设完整读写 ${format(N)} 个块；不含特殊优化。</p>`}
+['calcN','calcR','calcK'].forEach(id=>$(id).addEventListener('input',calc));calc();
+
+// Tournament loser tree demonstration. Internal nodes record losers, champion is separate.
+const mergeRuns=[[3,12,19],[8,11,20],[2,9,25],[6,15,23]];
+let mergeStep=0;const mergeTotal=mergeRuns.reduce((s,r)=>s+r.length,0);
+function mergeState(step){const idx=[0,0,0,0],out=[],src=[];for(let n=0;n<step;n++){let best=-1;for(let i=0;i<4;i++){let x=mergeRuns[i][idx[i]];if(x!==undefined&&(best<0||x<mergeRuns[best][idx[best]]))best=i}if(best<0)break;out.push(mergeRuns[best][idx[best]]);src.push(best);idx[best]++}return{idx,out,src}}
+function nodeText(svg,x,y,text,fill,stroke,white=false){return `<rect x="${x-41}" y="${y-18}" width="82" height="36" rx="9" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/><text x="${x}" y="${y+5}" text-anchor="middle" fill="${white?'#fff':'#233a57'}" font-size="13" font-weight="700">${text}</text>`}
+function renderMerge(){const state=mergeState(mergeStep),cur=state.idx.map((ix,i)=>mergeRuns[i][ix]??Infinity),cmp=(a,b)=>cur[a]<cur[b]?a:cur[a]>cur[b]?b:Math.min(a,b);const a=cmp(0,1),b=cmp(2,3),champ=cmp(a,b);const l=1-a,r=5-b,top=a===champ?b:a;const last=state.src.at(-1),hot=last==null?[]:(last<=1?['left','top']:['right','top']);
+$('mergeLanes').innerHTML=mergeRuns.map((run,i)=>`<div class="runline"><span class="run-name">R${i+1}</span>${run.map((x,j)=>makeTag(x,j===state.idx[i]?'active':j<state.idx[i]?'output':'')).join('')}</div>`).join('');$('mergeOutput').innerHTML=state.out.length?state.out.map(x=>makeTag(x,'output')).join(''):'<span class="muted small">尚未输出</span>';
+const colors={line:'#93a8c7',active:'#2459d3'};const style=key=>`stroke="${hot.includes(key)?colors.active:colors.line}" stroke-width="${hot.includes(key)?3.5:1.8}"`;
+let svg=`<g fill="none"><path d="M62 247 L117 170 M154 247 L117 170" ${style('left')}/><path d="M286 247 L337 170 M380 247 L337 170" ${style('right')}/><path d="M117 151 L227 82 M337 151 L227 82" ${style('top')}/></g>`;
+[62,154,286,380].forEach((x,i)=>{const txt=Number.isFinite(cur[i])?`R${i+1}: ${cur[i]}`:`R${i+1}: ∞`;svg+=nodeText(null,x,247,txt,'#eaf0ff','#7295db')});
+svg+=nodeText(null,117,170,`败 R${1-a+1}: ${Number.isFinite(cur[1-a])?cur[1-a]:'∞'}`,'#fff4dc','#dfa346');svg+=nodeText(null,337,170,`败 R${5-b}: ${Number.isFinite(cur[5-b])?cur[5-b]:'∞'}`,'#fff4dc','#dfa346');svg+=nodeText(null,227,82,`败 R${top+1}: ${Number.isFinite(cur[top])?cur[top]:'∞'}`,'#fff4dc','#dfa346');svg+=`<path d="M227 61 L227 45" stroke="#07877a" stroke-width="2" stroke-dasharray="4,3"/>`;
+const crown=Number.isFinite(cur[champ])?`冠军 R${champ+1}: ${cur[champ]}`:'归并完成';svg+=`<rect x="149" y="10" width="156" height="35" rx="10" fill="#07877a"/><text x="227" y="33" text-anchor="middle" fill="white" font-size="14" font-weight="800">${crown}</text>`;$('mergeTree').innerHTML=svg;
+$('mergeTreeCaption').textContent=last===undefined?'初始建树：比较每一路的当前段首值。':`上一轮从 R${last+1} 输出；蓝色路径为该路更新所经的比赛节点。`;
+$('mergeStepLabel').textContent=`${mergeStep} / ${mergeTotal} 个元素`;$('mergeNext').disabled=mergeStep>=mergeTotal;$('mergePrev').disabled=mergeStep<=0;
+$('mergeStatus').textContent=mergeStep===0?'初始：冠军是 R3 的 2。点击“下一步”输出这个值。':mergeStep===mergeTotal?'全部归并完成：12 个元素整体有序。':`第 ${mergeStep} 次输出：${state.out.at(-1)}（来自 R${last+1}），随后从这一归并段补入下一元素并更新败者树；当前下一冠军为 ${cur[champ]}。`;
+}
+$('mergeNext').addEventListener('click',()=>{mergeStep=Math.min(mergeTotal,mergeStep+1);renderMerge()});$('mergePrev').addEventListener('click',()=>{mergeStep=Math.max(0,mergeStep-1);renderMerge()});$('mergeReset').addEventListener('click',()=>{mergeStep=0;renderMerge()});renderMerge();
+
+// Replacement-selection simulator: state is recomputed from the fixed stream to make prev deterministic.
+const replaceData=[6,2,9,5,1,8,3,7,4,10,0,11];const replaceCapacity=3;
+function generateReplacement(){let next=replaceCapacity,mem=replaceData.slice(0,replaceCapacity).map(v=>({v,frozen:false})),runs=[[]],last=-Infinity,states=[];
+const save=msg=>states.push({next,mem:mem.map(a=>a?{...a}:null),runs:runs.map(r=>r.slice()),last,msg});
+save('已将前 3 条记录放入工作区。请选择未冻结的最小值开始输出。');
+for(let safety=0;safety<100;safety++){
+ let candidates=mem.map((p,i)=>p&&!p.frozen?i:-1).filter(i=>i>=0);
+ if(!candidates.length){if(mem.every(x=>x===null))break;mem.forEach(x=>{if(x)x.frozen=false});runs.push([]);last=-Infinity;save(`当前段没有可继续输出的候选，结束上一段；解冻工作区，开始归并段 R${runs.length}。`);continue}
+ candidates.sort((i,j)=>mem[i].v-mem[j].v||i-j);let at=candidates[0],value=mem[at].v;last=value;runs.at(-1).push(value);let info=`输出 ${value} 到归并段 R${runs.length}。`;
+ if(next<replaceData.length){let incoming=replaceData[next++],frozen=incoming<value;mem[at]={v:incoming,frozen};info+=` 读入 ${incoming}，${frozen?`${incoming} < ${value}，冻结，留给下一段。`:`${incoming} ≥ ${value}，可以继续参加本段排序。`}`}else{mem[at]=null;info+=' 输入流已无新记录，这个槽位变为空。'}save(info)
+}
+return states}
+const replaceStates=generateReplacement();let replaceStep=0;
+function renderReplacement(){const s=replaceStates[replaceStep];$('replaceInput').innerHTML=replaceData.map((x,i)=>makeTag(x,i<s.next?'output':'')).join('');const available=s.mem.filter(Boolean).filter(v=>!v.frozen).map(v=>v.v);let minimum=available.length?Math.min(...available):null;let highlighted=false;$('replaceMemory').innerHTML=s.mem.map((x,i)=>{if(!x)return makeTag(`槽${i+1}: 空`);let active=!x.frozen&&x.v===minimum&&!highlighted;if(active)highlighted=true;return makeTag(`槽${i+1}: ${x.v}${x.frozen?' ❄':''}`,x.frozen?'frozen':active?'active':'')}).join('');$('replaceRuns').innerHTML=s.runs.map((run,i)=>`<div class="runline"><span class="run-name">R${i+1}</span>${run.length?run.map(v=>makeTag(v,'output')).join(''):'<span class="muted small">尚无输出</span>'}</div>`).join('');$('replaceStatus').textContent=s.msg;$('replaceStepLabel').textContent=`步骤 ${replaceStep} / ${replaceStates.length-1}`;$('replaceNext').disabled=replaceStep===replaceStates.length-1;$('replacePrev').disabled=replaceStep===0;}
+$('replaceNext').addEventListener('click',()=>{replaceStep=Math.min(replaceStates.length-1,replaceStep+1);renderReplacement()});$('replacePrev').addEventListener('click',()=>{replaceStep=Math.max(0,replaceStep-1);renderReplacement()});$('replaceReset').addEventListener('click',()=>{replaceStep=0;renderReplacement()});renderReplacement();
+
+$('themeBtn').addEventListener('click',()=>{document.body.classList.toggle('dark');$('themeBtn').textContent=document.body.classList.contains('dark')?'☀ 切换浅色模式':'◐ 切换深色模式'});$('printBtn').addEventListener('click',()=>window.print());
+function onScroll(){const max=document.documentElement.scrollHeight-innerHeight;$('readingProgress').style.width=(max>0?Math.min(100,Math.max(0,scrollY/max*100)):0)+'%';let current='overview';document.querySelectorAll('header[id],section[id]').forEach(el=>{if(el.getBoundingClientRect().top<180)current=el.id});document.querySelectorAll('.toc a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+current))}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+</script>
+</body>
+</html>

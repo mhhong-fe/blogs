@@ -21,6 +21,10 @@ module.exports = {
       "link": "/工具使用/github actions"
     },
     {
+      "text": "408",
+      "link": "/408/external-sort.html"
+    },
+    {
       "text": "算法",
       "link": "/算法/排序算法"
     }
@@ -46,26 +50,16 @@ module.exports = {
         "link": "/基础知识/Css踩坑记录"
       },
       {
-        "text": "Canvas功能梳理",
-        "link": "/基础知识/Canvas功能梳理"
-      },
-      {
-        "text": "JavaScript",
-        "collapsed": true,
-        "items": [
-          {
-            "text": "视频播放",
-            "link": "/基础知识/JavaScript/视频播放"
-          },
-          {
-            "text": "IntersectionObserver",
-            "link": "/基础知识/JavaScript/IntersectionObserver"
-          }
-        ]
-      },
-      {
         "text": "移动端设备调试",
         "link": "/基础知识/移动端设备调试"
+      },
+      {
+        "text": "IntersectionObserver",
+        "link": "/基础知识/IntersectionObserver"
+      },
+      {
+        "text": "Canvas功能梳理",
+        "link": "/基础知识/Canvas功能梳理"
       }
     ],
     "/Vue/": [
@@ -124,6 +118,12 @@ module.exports = {
       {
         "text": "whistle",
         "link": "/工具使用/whistle"
+      }
+    ],
+    "/408/": [
+      {
+        "text": "外部排序完全指南",
+        "link": "/408/external-sort.html"
       }
     ],
     "/算法/": [

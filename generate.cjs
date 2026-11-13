@@ -84,6 +84,24 @@ function generateSidebar(dirPath, basePath = "") {
         }
     });
 
+    // 同时收录 public 下与文档分类同路径的独立 HTML 教材。
+    const staticDir = path.join(docsPath, "public", basePath);
+    if (fs.existsSync(staticDir)) {
+        fs.readdirSync(staticDir).sort().forEach((file) => {
+            const fullPath = path.join(staticDir, file);
+            if (!fs.statSync(fullPath).isFile() || !file.endsWith(".html")) return;
+            const link = `${basePath}/${file}`;
+            // Markdown 页面优先，避免相同输出路径出现重复入口。
+            if (items.some((item) => `${item.link}.html` === link)) return;
+            const html = fs.readFileSync(fullPath, "utf8");
+            const title = html.match(/<title>([^<]+)<\/title>/i)?.[1];
+            items.push({
+                text: title ? title.split("｜")[0].trim() : path.basename(file, ".html"),
+                link,
+            });
+        });
+    }
+
     return items;
 }
 
@@ -106,7 +124,8 @@ function generateNav(baseDir) {
         .readdirSync(baseDir)
         .filter((file) => {
             const fullPath = path.join(baseDir, file);
-            return fs.statSync(fullPath).isDirectory();
+            // public 是静态资源目录，不生成文档分类导航。
+            return file !== "public" && fs.statSync(fullPath).isDirectory();
         })
         .sort((a, b) => {
             return (
@@ -137,6 +156,11 @@ function generateConfig() {
             dirPath,
             `/${navItem.text}`,
         );
+        // 只有静态教材的分类也直接指向首篇文章。
+        if (navItem.link === `/${navItem.text}/`) {
+            const firstArticle = sidebar[`/${navItem.text}/`].find((item) => item.link);
+            if (firstArticle) navItem.link = firstArticle.link;
+        }
     });
 
     // 将配置写入文件
