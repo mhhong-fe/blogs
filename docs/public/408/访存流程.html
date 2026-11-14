@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>32 位访存全流程 · 交互教材</title><style>
+:root{--bg:#f5f7fb;--paper:#fff;--ink:#18243a;--sub:#52627a;--line:#dbe3ee;--blue:#2563eb;--teal:#0f9488;--amber:#c77a10;--red:#d14343;--purple:#7955c7;--green:#16805d}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.58}main{max-width:1150px;margin:auto;padding:26px 20px 80px}.hero{background:linear-gradient(115deg,#172b50,#24487d);color:white;border-radius:19px;padding:30px 34px}.hero h1{margin:0 0 8px;font-size:29px}.hero p{margin:0;color:#d6e4ff;font-size:14px}.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.pill{background:#ffffff20;border:1px solid #ffffff40;padding:4px 11px;border-radius:20px;font-size:12px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:18px;box-shadow:0 3px 14px #24344a08}h2{font-size:20px;margin:0 0 14px}h3{font-size:16px;margin:16px 0 8px}p{margin:7px 0}small,.muted{color:var(--sub)}.muted{font-size:13px}code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#edf2fa;border-radius:4px;padding:1px 4px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}th{background:#f3f6fb;color:#374863}tr:last-child td{border-bottom:0}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.component{background:white;border:1px solid var(--line);border-radius:14px;padding:15px;border-top:4px solid var(--blue)}.component:nth-child(2){border-top-color:var(--teal)}.component:nth-child(3){border-top-color:var(--amber)}.component:nth-child(4){border-top-color:var(--purple)}.component h3{margin:0 0 7px}.component p{font-size:13px;margin:6px 0}.label{font-weight:700;color:#32435d;font-size:12px}.split{display:flex;gap:0;overflow:hidden;border-radius:9px;border:1px solid #ccd7e6}.seg{padding:11px 8px;text-align:center;min-width:0;font-size:13px}.seg strong{display:block;font-size:15px}.seg small{display:block;font-size:11px}.seg.b{background:#e1edff;flex:10}.seg.t{background:#d9f5f0;flex:10}.seg.a{background:#fff0cf;flex:12}.seg.v{background:#e6e1fa;flex:18}.seg.c{background:#d9f5f0;flex:8}.seg.o{background:#fff0cf;flex:6}.addr{display:flex;align-items:center;justify-content:center;margin:16px 0;gap:12px;flex-wrap:wrap}.addr .chip{padding:12px 16px;background:#f1f5fb;border:1px solid #d5e0ed;border-radius:10px;text-align:center}.addr .arrow{font-size:22px;color:var(--sub)}.chip strong{display:block;font-family:ui-monospace,monospace;font-size:17px}.chip small{display:block}.toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:10px 0 16px}.toolbar button,.scenarios button{border:1px solid #cbd7e6;background:#fff;color:#284267;border-radius:9px;padding:9px 12px;cursor:pointer;font-size:13px;font-weight:600}.toolbar button.primary{background:var(--blue);color:white;border-color:var(--blue)}button:hover{filter:brightness(.97)}button:disabled{opacity:.45;cursor:not-allowed}.scenarios{display:flex;gap:7px;flex-wrap:wrap}.scenarios button.selected{color:#fff;background:#2457aa;border-color:#2457aa}.simgrid{display:grid;grid-template-columns: 300px 1fr;gap:18px}.controls{background:#f7f9fd;border-radius:13px;padding:16px;border:1px solid var(--line)}.controls label{display:block;font-size:13px;font-weight:650;margin:11px 0 5px}.controls select{width:100%;padding:9px 10px;border:1px solid #cad7e7;border-radius:8px;background:white;color:var(--ink);font-size:13px}.controls button{margin-top:14px}.status{border-radius:12px;padding:14px;background:#eef4ff;border:1px solid #bcd2ff;margin-bottom:12px}.status b{color:#224f9e}.status.error{background:#fff0f0;border-color:#f5c2c2}.status.error b{color:#b52d37}.status.ok{background:#eaf9f2;border-color:#b1e5d0}.status.ok b{color:var(--green)}.stepbox{background:#fff;border-radius:13px;border:1px solid var(--line);overflow:hidden}.stephead{padding:13px 16px;background:#f2f5fa;font-weight:700;display:flex;justify-content:space-between;gap:8px}.stepbody{padding:17px}.stepbody h3{margin:0 0 8px;color:#1a3d77}.stepbody .why{color:#41536f;margin:8px 0;font-size:14px}.stepbody .detail{background:#f7f9fd;border-left:3px solid var(--blue);padding:10px 12px;font-size:13px;white-space:pre-line;margin-top:10px}.trail{display:flex;flex-wrap:wrap;gap:6px;margin:13px 0}.trail span{font-size:11px;padding:5px 8px;border-radius:6px;border:1px solid #d4dfeb;color:#64748b}.trail span.done{background:#e8f6ee;border-color:#afe0c6;color:#186c50}.trail span.current{background:#e7efff;border-color:#83aaff;color:#174eac;font-weight:700}.legend{font-size:12px;color:var(--sub)}.hint{border-left:4px solid #df991f;background:#fff8e8;padding:11px 13px;border-radius:7px;font-size:13px}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px}.part{border:1px solid var(--line);padding:14px;border-radius:12px}.part h3{margin-top:0}.kpi{display:flex;gap:10px;flex-wrap:wrap}.kpi span{padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:12px;background:#fafcff}.foot{margin-top:20px;color:#64748b;font-size:12px;text-align:center}.note{font-size:12px;color:var(--sub)}@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.simgrid{grid-template-columns:1fr}.twocol{grid-template-columns:1fr}}@media(max-width:560px){main{padding:12px 10px 45px}.hero{padding:23px 18px}.hero h1{font-size:23px}.panel{padding:15px}.grid{grid-template-columns:1fr}.seg{padding:8px 2px;font-size:11px}.seg strong{font-size:12px}.seg small{font-size:10px}table{font-size:12px}th,td{padding:8px 5px}}@media print{body{background:white}.panel{break-inside:avoid;box-shadow:none}.toolbar,.scenarios,.controls button{display:none}}
+
+/* v2: synchronous flowchart and miniature hardware data tables */
+.visual-lab{margin-bottom:14px;border:1px solid #cbd9ec;border-radius:14px;overflow:hidden;background:#fff}
+.lab-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;background:#edf4ff;border-bottom:1px solid #d4e0ef}
+.lab-head strong{font-size:15px}.lab-head small{font-size:12px}.flowgrid{padding:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:center}
+.flow-node{position:relative;text-align:center;border:1px solid #cdd7e6;border-radius:9px;padding:10px 5px;background:#f6f8fc;font-size:12px;font-weight:700;min-height:43px;transition:background .15s,border .15s,box-shadow .15s}
+.flow-node .minor{display:block;font-size:10px;font-weight:400;color:#607089}.flow-node.active{background:#deedff;border:2px solid #2563eb;box-shadow:0 0 0 3px #2563eb20;padding:9px 4px}.flow-node.passed{border-color:#70b49b;background:#eaf8f1}.flow-node.error-node.active{background:#fff0f0;border-color:#d14343;box-shadow:0 0 0 3px #d1434320}
+.flow-arrow{text-align:center;color:#71829c;font-size:12px}.lab-step-label{font-size:12px;color:#4e617e;background:#f6f8fc;padding:10px 14px;border-top:1px solid #e1e8f2}.snapshots{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:12px;background:#fbfcfe}.snapshot{background:#fff;border:1px solid #dce4ef;border-radius:11px;overflow:hidden}.snapshot.selected{border:2px solid #2563eb;box-shadow:0 0 0 2px #2563eb12}.snapshot header{padding:9px 11px;border-bottom:1px solid #e2e7ef;background:#f5f8fc;display:flex;justify-content:space-between;align-items:center;gap:6px}.snapshot header strong{font-size:13px}.snapshot header small{font-size:11px;color:#50627a}.snapshot .inside{padding:9px}.snapshot table{font-size:11px;white-space:nowrap}.snapshot th,.snapshot td{padding:5px 5px}.snapshot tr.target{background:#e4f5ed;font-weight:700}.snapshot tr.badtarget{background:#fff0e5;font-weight:700}.snapshot tr.off{color:#8a99ad}.snapshot .result{margin-top:8px;background:#f0f5fb;color:#334861;font-size:11px;border-radius:6px;padding:8px;min-height:48px}.snapshot .result.ok{background:#e4f6ed;color:#116444}.snapshot .result.fail{background:#fff0e9;color:#9f4530}.snapshot .mini{font-size:11px;color:#66758b;margin:6px 0 0}.snapshot .inside code{font-size:11px}
+@media(max-width:680px){.snapshots{grid-template-columns:1fr}.flowgrid{gap:5px;padding:9px}.flow-node{font-size:11px;padding:8px 3px}.lab-head{flex-direction:column;align-items:start}}
+
+/* v3: colocated simulator navigation and flow chart */
+.flow-actions{position:sticky;top:8px;z-index:15;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 13px;background:rgba(237,244,255,.97);border-top:1px solid #d4e0ef;border-bottom:1px solid #d4e0ef;box-shadow:0 4px 12px #132b4a0d;backdrop-filter:blur(8px)}
+.flow-actions .toolbar{display:flex;margin:0;gap:8px;align-items:center;flex-wrap:wrap}
+.flow-actions .toolbar button{margin:0;padding:9px 14px;min-height:38px}
+.flow-actions .toolbar button.primary{font-size:14px;box-shadow:0 2px 6px #2563eb28}
+.control-tip{font-size:11px;color:#52627a}
+.live-step{padding:12px;background:#f8fbff;border-bottom:1px solid #e0e8f3}
+.live-step .stepbox{border-color:#c9d8ee}
+.live-step .stephead{padding:8px 13px}
+.live-step .stepbody{padding:11px 13px}
+.live-step .stepbody h3{font-size:15px;margin:0 0 3px}
+.live-step .stepbody .why{margin:3px 0;font-size:13px}
+.live-step .stepbody .detail{margin-top:7px;padding:8px 10px;font-size:12px}
+.flowgrid{padding:9px 12px;gap:6px}
+.flow-node{min-height:37px;padding:6px 4px}
+.flow-node.active{padding:5px 3px}
+.lab-step-label{padding:7px 13px}
+.snapshots{border-top:1px solid #dce4ef}
+@media(max-width:680px){.flow-actions{top:0;padding:8px;gap:3px}.flow-actions .toolbar{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:6px}.flow-actions .toolbar button{padding:8px 5px;min-height:37px}.control-tip{display:none}.live-step{padding:8px}.flow-node{min-height:34px}}
+@media print{.flow-actions{position:static}.flow-actions .toolbar{display:none}}
+
+
+/* v4 full viewport integrated workspace */
+main{max-width:1440px;padding:12px 16px 50px}
+.hero{padding:13px 19px;border-radius:12px}.hero h1{font-size:20px;margin-bottom:2px}.hero p{font-size:12px}
+#demo{margin-top:9px;padding:12px 15px}#demo h2{font-size:17px;margin-bottom:5px}
+#demo>.muted{margin:4px 0 8px;font-size:11px}
+.scenarios{gap:5px;max-height:72px;overflow:auto;margin-top:7px}.scenarios button{font-size:11px;padding:5px 8px;border-radius:6px}
+.settings{margin:7px 0}.settings>summary{font-size:11px;color:#375783;cursor:pointer}
+.settings .controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px 12px;padding:9px;margin-top:5px}
+.settings .controls label{margin:0;font-size:11px}.settings .controls select{padding:5px;font-size:11px}.settings .controls .note{grid-column:1/-1;font-size:10px;margin:0}.settings .controls button{margin:4px 0 0}
+.simgrid.single{display:block;margin-top:8px!important}.simgrid.single>div{width:100%}
+.visual-lab{margin-bottom:0;border-radius:10px}.lab-head{padding:5px 11px}.lab-head strong{font-size:12px}.lab-head small{font-size:10px}
+.flow-actions{position:static;top:auto;padding:7px 9px;box-shadow:none;justify-content:space-between}.flow-actions .toolbar button{min-height:32px;padding:5px 12px;font-size:12px}
+.lab-step-label{padding:5px 10px;font-size:11px}.control-tip{font-size:10px}
+.workbench{display:grid;grid-template-columns:minmax(350px, .95fr) minmax(0,1.05fr);gap:10px;padding:9px;min-height:340px;max-height:calc(100dvh - 290px);overflow:auto}
+.flow-column{display:flex;flex-direction:column;justify-content:center;background:#f8fafc;border:1px solid #e0e6f0;border-radius:9px}
+.flowgrid{padding:8px;gap:6px}.flow-node{min-height:49px;font-size:12px}.flow-node .minor{font-size:10px}.flow-arrow{font-size:11px}
+.detail-column{min-width:0;display:flex;flex-direction:column;gap:8px}.live-step{padding:0;border:0}.live-step .stepbody{padding:8px 10px}.live-step .stepbody h3{font-size:13px}.live-step .stepbody .why{font-size:11px}.live-step .stepbody .detail{font-size:11px;padding:6px 8px;margin-top:4px}.live-step .stephead{padding:5px 9px;font-size:11px}
+.snapshots{display:block;padding:0;border:0;background:transparent}.snapshot{display:none}.snapshot.shown{display:block!important;border:1px solid #90b4ea}.snapshot header{padding:7px 10px}.snapshot .inside{padding:8px}.snapshot table{font-size:11px}.snapshot th,.snapshot td{padding:5px}.snapshot .result{min-height:0;margin-top:5px;padding:6px;font-size:11px}.snapshot .mini{font-size:10px}
+#snap-context{display:none}#snap-context.shown{display:block}.below-only{display:none!important}
+.binary-legend{display:flex;gap:9px;flex-wrap:wrap;margin:0 0 6px;font-size:10px;color:#596781}.binary-legend span{display:inline-flex;gap:4px;align-items:center}.sw{display:inline-block;width:10px;height:10px;border-radius:2px}.b1{background:#2563eb}.b2{background:#0d9488}.b3{background:#c77a10}.b4{background:#7955c7}.b5{background:#0f766e}.b6{background:#b45309}
+.binary{display:inline-flex;gap:3px;flex-wrap:wrap;vertical-align:baseline;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.93em;font-variant-numeric:tabular-nums;letter-spacing:-.2px}
+.bits{border-radius:3px;padding:0 3px;white-space:pre-wrap;font-weight:650;overflow-wrap:anywhere}
+.bits1{background:#dceafe;color:#19478f}.bits2{background:#d7f4ed;color:#066255}.bits3{background:#fff0cf;color:#905500}.bits4{background:#ede5ff;color:#6031ac}.bits5{background:#d8f5ee;color:#116e61}.bits6{background:#ffe8c5;color:#9b5109}
+#demo code{white-space:normal;overflow-wrap:anywhere}
+@media(max-width:900px){.workbench{grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:340px;max-height:calc(100dvh - 245px)}.flow-node{font-size:10px}.flow-node .minor{font-size:9px}}
+@media(max-width:680px){main{padding:6px 7px 30px}.hero{padding:10px 12px}.hero h1{font-size:17px}.hero p{font-size:10px}#demo{padding:9px}.scenarios{max-height:62px}.workbench{display:flex;flex-direction:column;overflow:auto;min-height:0;max-height:calc(100dvh - 270px);padding:6px;gap:6px}.flowgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}.flow-node{min-height:32px;font-size:10px;padding:4px 2px}.flow-node .minor{font-size:8px}.flow-column{flex:none}.flow-actions .toolbar{display:flex;flex-wrap:nowrap;gap:4px}.flow-actions .toolbar button{padding:5px 6px;min-height:30px;font-size:10px}.detail-column{flex:none}.settings .controls{grid-template-columns:1fr}.binary{font-size:.85em}.snapshot table{font-size:10px}}
+
+/* v5: compact setup + in-step address partition boxes */
+.setup-card{background:#fff;border:1px solid #d6e2f0;border-radius:12px;padding:10px 14px;margin-top:9px}
+.setup-title{font-size:13px;font-weight:750;display:flex;gap:10px;align-items:center}.setup-title span{font-size:10px;font-weight:400;color:#60718d}
+.setup-grid{display:grid;grid-template-columns:1.45fr 1.3fr 1fr 1.35fr;gap:10px;margin-top:7px}
+.setup-grid>div{min-width:0;padding:7px 9px;border:1px solid #e4eaf3;border-radius:8px;background:#fafcff}
+.setup-grid small{display:block;font-size:10px;color:#61718a}.setup-grid strong{display:block;font-size:11px;line-height:1.45;font-weight:650}
+.setup-va{display:flex;flex-wrap:wrap;gap:2px;font-size:11px;font-family:ui-monospace,Menlo,monospace;font-weight:700;margin-top:3px}
+.ab{display:inline-block;padding:4px 5px;border-radius:4px;letter-spacing:-.3px;font-family:ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-weight:700;color:#142235;white-space:nowrap}
+.ab1{background:#dbeafe;color:#174993}.ab2{background:#d9f5ed;color:#075f56}.ab3{background:#fff0cb;color:#885000}
+.ab4{background:#ece4ff;color:#6035a3}.ab5{background:#d6f1ed;color:#095e56}.ab6{background:#ffe3bd;color:#96500e}
+.ab-neutral{background:#eaf0f7;color:#36506f}
+.setup-note{font-size:10px;color:#63728b;margin-top:5px}
+.address-stage{margin:8px 0 7px;padding:8px 9px;background:#f9fbff;border:1px solid #dde7f3;border-radius:8px;display:grid;gap:6px}
+.address-stage:empty{display:none}
+.address-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.address-key{width:94px;flex-shrink:0;font-size:10px;color:#53627b;font-weight:700}
+.address-parts{display:flex;align-items:center;gap:2px;flex-wrap:wrap;min-width:0}
+.address-part{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:4px 5px;border-radius:5px;min-width:0}
+.address-part .part-name{font-size:9px;opacity:.85;line-height:1.1;white-space:nowrap}
+.address-part .part-bits{font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:-.35px;font-size:11px;font-weight:750;white-space:nowrap}
+.address-arrow{font-size:12px;color:#71839e;margin:0 2px}
+.address-stage .comparison{font-size:10px;color:#415471;line-height:1.4}
+#demo .stepbody .detail{display:none}
+#demo .stepbody .detail.show{display:block}
+#demo .stepbody .why{font-size:11px;line-height:1.4;margin:4px 0}
+#demo .stepbody h3{font-size:13px}
+.reference-card{padding:10px 14px}.reference-card>summary{font-weight:700;font-size:13px;cursor:pointer;color:#31496a}
+.reference-details{margin-top:8px}.reference-details>summary{display:none}
+@media(max-width:1100px){.setup-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.setup-card{padding:8px}.setup-grid{gap:5px}.setup-grid>div{padding:5px}.setup-grid strong{font-size:10px}.setup-va{font-size:9px}.ab{padding:3px}.setup-note{font-size:9px}.address-key{width:75px}.address-part .part-bits{font-size:10px;letter-spacing:-.5px}.address-part{padding:4px 3px}.address-stage{padding:6px}}
+</style></head><body><main><header class="hero"><h1>32 位访存 · 交互流程演示</h1><p>逐步查看地址翻译、表项定位、命中判断与异常处理</p></header><section aria-label="演示背景" class="setup-card">
+<div class="setup-title">演示背景 <span>固定配置 · 单次读取 4 B</span></div>
+<div class="setup-grid">
+<div><small>虚拟地址（32 位）</small><div class="setup-va"><span class="ab ab1">0001001000</span><span class="ab ab2">1101000101</span><span class="ab ab3">101010111100</span></div></div>
+<div><small>二级页表</small><strong>10 位目录索引 + 10 位页表索引 + 12 位页内偏移</strong></div>
+<div><small>TLB 映射</small><strong>16 项全相联 · VPN → PPN</strong></div>
+<div><small>Cache 映射</small><strong>16 KB · 64 B/行 · 直接映射 · PIPT</strong></div>
+</div>
+<div class="setup-note">页面 4 KB，页表项 4 B；物理地址 32 位；Cache 写回 + 写分配。示例读取地址对应的 4 B。</div>
+</section><section class="panel" id="demo"><h2>访存模拟</h2><div class="scenarios" id="presets"></div><details class="settings"><summary>自定义场景参数（可展开）</summary><aside class="controls"><label for="tlb">TLB 查找</label><select id="tlb"><option value="hit">命中（VPN 匹配）</option><option value="miss">未命中（无匹配项）</option></select><label for="pde">一级页目录 PDE</label><select id="pde"><option value="ok">P=1，存在且允许</option><option value="absent">P=0，没有有效表映射</option><option value="deny">P=1，但权限禁止</option></select><label for="pte">二级页表 PTE</label><select id="pte"><option value="ok">P=1，存在且允许</option><option value="absent">P=0，没有有效页映射</option><option value="deny">P=1，但权限禁止</option></select><label for="permission">TLB 命中时的权限</label><select id="permission"><option value="ok">允许本次访问</option><option value="deny">禁止本次访问</option></select><label for="fault">OS 对异常的判断</label><select id="fault"><option value="recover">合法：可恢复（分配或调页 / 修复 COW）</option><option value="illegal">非法：终止本次访问</option></select><label for="cache">Cache 目标行状态</label><select id="cache"><option value="hit">V=1，Tag 相同（命中）</option><option value="invalid">V=0（空行未命中）</option><option value="clean">V=1，Tag 不同，旧块干净</option><option value="dirty">V=1，Tag 不同，旧块脏</option></select><button class="primary" id="apply" style="width:100%">按当前设置重新开始</button></aside></details><div class="simgrid single" style="margin-top:16px"><div><div class="visual-lab" id="liveLab"><div class="lab-head"><strong>当前访存路径</strong></div><div aria-label="访存步骤操作" class="flow-actions"><div class="toolbar"><button id="prev">← 上一步</button><button class="primary" id="next">下一步 →</button><button id="all">显示全部结果</button><button id="restart">重置</button></div></div><div class="lab-step-label" id="liveRoute">当前路径：尚未开始</div><div class="workbench"><div class="flow-column"><div aria-label="访存路径总览" class="flowgrid">
+<div class="flow-node" data-node="cpu">CPU<small class="minor">虚拟地址 0x12345ABC</small></div><div class="flow-arrow">→</div><div class="flow-node" data-node="mmu">MMU<small class="minor">VPN / 偏移</small></div>
+<div class="flow-node" data-node="tlb">TLB 比较<small class="minor">全相联 · 展示 4/16 项</small></div><div class="flow-arrow">← 命中 / 未命中 →</div><div class="flow-node" data-node="page">二级页表<small class="minor">PDE → PTE</small></div>
+<div class="flow-node error-node" data-node="os">异常 / OS<small class="minor">缺页、越权、重试</small></div><div class="flow-arrow">↓ 恢复后继续 ↓</div><div class="flow-node" data-node="cache">Cache 比较<small class="minor">行索引 → V / 标记</small></div>
+<div class="flow-node" data-node="ram">主存 / 写回<small class="minor">Cache Miss</small></div><div class="flow-arrow">→</div><div class="flow-node" data-node="finish">CPU 得到数据<small class="minor">4 B / 或非法终止</small></div>
+</div></div><div class="detail-column"><div class="live-step"><div class="stepbox"><div class="stephead"><span id="counter">步骤 0 / 0</span><span class="muted" id="kind">执行轨迹</span></div><div class="stepbody"><h3 id="stepTitle">点击“下一步”开始</h3><div aria-live="polite" class="address-stage" id="addressStage"></div><p class="why" id="stepWhy">每一步将给出比对内容与处理结果。</p><div class="detail" id="stepDetail">VA = 0x12345ABC</div></div></div></div><div class="snapshots">
+<article class="snapshot" id="snap-tlb"><header><strong> TLB：全相联匹配</strong><small id="badge-tlb">待检查</small></header><div class="inside"><p class="mini">查找键：VPN 0x12345 ，要求 有效位=1 且 VPN 相同</p><table><thead><tr><th>表项编号</th><th>有效位</th><th>VPN</th><th>PPN</th><th>结果</th></tr></thead><tbody id="rows-tlb"></tbody></table><div class="result" id="res-tlb">尚未检查</div></div></article>
+<article class="snapshot" id="snap-pde"><header><strong> 一级页目录 PDE</strong><small id="badge-pde">待检查</small></header><div class="inside"><p class="mini">CR3 / PTBR 0x00100000 ；索引 72；地址 0x00100120</p><table><thead><tr><th>索引</th><th>存在位</th><th>二级页表基址</th><th>结果</th></tr></thead><tbody id="rows-pde"></tbody></table><div class="result" id="res-pde">用索引直接定位，不逐项比对 VPN</div></div></article>
+<article class="snapshot" id="snap-pte"><header><strong> 二级页表 PTE</strong><small id="badge-pte">待检查</small></header><div class="inside"><p class="mini">表基址 0x00345000 ；索引 837；地址 0x00345D14</p><table><thead><tr><th>索引</th><th>存在位</th><th>PPN</th><th>结果</th></tr></thead><tbody id="rows-pte"></tbody></table><div class="result" id="res-pte">从选中表项获得 PPN，不存整个物理地址</div></div></article>
+<article class="snapshot" id="snap-cache"><header><strong> Cache：直接映射</strong><small id="badge-cache">待检查</small></header><div class="inside"><p class="mini">PA 0x2ABCDABC ：标记 0x0AAF3 ；行索引 106 ；块内偏移 60</p><table><thead><tr><th>Cache 行号</th><th>有效位</th><th>脏位</th><th>Tag</th><th>结果</th></tr></thead><tbody id="rows-cache"></tbody></table><div class="result" id="res-cache">先用 Index 选行，再比较 V 和 Tag</div></div></article>
+</div><article class="snapshot" id="snap-context"><header><strong id="contextHeading">CPU / MMU / 异常处理</strong><small>当前步骤</small></header><div class="inside"><p id="contextText">点击下一步开始。</p></div></article></div></div>
+</div><div class="status below-only" id="status"><b>准备就绪</b><div class="muted" id="overview">请选择场景并逐步执行。</div></div><div class="trail below-only" id="trail"></div><div class="status below-only" id="outcome"><b>最终结果</b><div class="muted" id="outcomeText">尚未执行。</div></div></div></div></section>
+<section class="panel reference-card"><summary>参考：部件功能与结构</summary><details class="reference-details"><div class="grid"><article class="component"><h3>MMU</h3><p><span class="label">功能</span> 地址翻译与访问保护。</p><p><span class="label">组成/依赖</span> 地址拆分逻辑、权限检查、TLB、页表遍历硬件（在本模型中）。</p><p><span class="label">检查过程</span> 从 VA 提取 VPN；查 TLB 或遍历页表；检查有效性和权限；拼接 PPN + 页内偏移。</p></article><article class="component"><h3>TLB（快表）</h3><p><span class="label">功能</span> 缓存最终 <b>VPN → PPN</b> 翻译结果。</p><p><span class="label">组成</span> VPN 标记、PPN、有效位、权限、地址空间标识等。</p><p><span class="label">比对</span> 本例为全相联：VPN（含地址空间上下文）与所有有效表项并行匹配；不存完整物理地址。</p></article><article class="component"><h3>二级页表</h3><p><span class="label">功能</span> 保存权威虚拟页映射，按需分配页表页。</p><p><span class="label">组成</span> 页目录（PDE）→ 二级页表（PTE），表项有存在位、页框号、权限等。</p><p><span class="label">定位</span> 页目录基址 + 一级索引×4；二级页表基址 + 二级索引×4。</p></article><article class="component"><h3>Cache（数据缓存）</h3><p><span class="label">功能</span> 缓存数据的 64 B 物理块。</p><p><span class="label">组成</span> 256 行；每行含数据、Tag、有效位、脏位。</p><p><span class="label">比对</span> 物理地址 Index 定位行；要求 V=1 且 Tag 相等；Offset 选择块内字节。</p></article></div><p class="hint"><b>明确三种“缺失”：</b>TLB miss → 查页表；Cache miss → 向下一级取数据块；Page Fault → CPU 进入操作系统异常处理。三者不能等同。</p></details></section>
+<section class="panel reference-card"><summary>参考：地址计算</summary><details class="reference-details"><p class="label">虚拟地址 VA = 0x12345ABC（32 位）</p><div class="split"><div class="seg b">一级目录索引<strong>0x048</strong><small>位 31～22 · 10 位</small></div><div class="seg t">二级页表索引<strong>0x345</strong><small>位 21～12 · 10 位</small></div><div class="seg a">页内偏移<strong>0xABC</strong><small>位 11～0 · 12 位</small></div></div><div class="addr"><div class="chip"><small>TLB 查找键 VPN</small><strong>0x12345</strong></div><div class="arrow">→</div><div class="chip"><small>TLB / PTE 返回 PPN</small><strong>0x2ABCD</strong></div><div class="arrow">+</div><div class="chip"><small>保留页内偏移</small><strong>0xABC</strong></div><div class="arrow">=</div><div class="chip"><small>物理地址 PA</small><strong>0x2ABCDABC</strong></div></div><p class="muted">演示假设：页目录基址 0x00100000；PDE[72] 指向二级页表 0x00345000；PTE[837] 指向物理页框 0x2ABCD。以上数值为教学构造，不是实际机器内存快照。</p><div class="twocol"><div class="part"><h3>二级页表地址计算</h3><table><tr><th>内容</th><th>值</th></tr><tr><td>一级目录项物理地址</td><td><code>0x00100120</code></td></tr><tr><td>二级表基址</td><td><code>0x00345000</code></td></tr><tr><td>二级页表项物理地址</td><td><code>0x00345D14</code></td></tr><tr><td>最终物理地址</td><td><code>0x2ABCDABC</code></td></tr></table></div><div class="part"><h3>Cache 地址拆分（PIPT）</h3><div class="split"><div class="seg v">Tag<strong>0x0AAF3</strong><small>18 位</small></div><div class="seg c">Index<strong>0x6A</strong><small>8 位</small></div><div class="seg o">Offset<strong>0x3C</strong><small>6 位</small></div></div><p class="muted">Index = 106；块内偏移 = 60。64 B 目标块：<code>0x2ABCDA80 ~ 0x2ABCDABF</code>。一次取 4 B（60～63），不跨 Cache 块。</p></div></div></details></section>
+<section class="panel reference-card"><summary>参考：缺失与异常处理</summary><details class="reference-details"><table><thead><tr><th>事件</th><th>触发条件</th><th>处理者</th><th>如何继续</th></tr></thead><tbody><tr><td>TLB 未命中</td><td>VPN 没有匹配的有效 TLB 表项</td><td>本模型：MMU 硬件页表遍历</td><td>遍历成功，缓存 VPN→PPN；否则异常</td></tr><tr><td>PDE/PTE 不存在</td><td>存在位 P=0</td><td>CPU 触发 Page Fault；OS 判断原因</td><td>合法则分配页表/页面或调页后重试；非法则报告错误</td></tr><tr><td>访问越权</td><td>读/写/执行权限或特权级不满足</td><td>CPU 报告保护故障；OS 处理</td><td>可恢复的 COW 等修复后重试；否则报告错误</td></tr><tr><td>Cache 未命中</td><td>行无效或 Tag 不匹配</td><td>缓存控制硬件</td><td>获取下一级的数据块，更新 Cache</td></tr><tr><td>脏块替换</td><td>Tag 不匹配且旧行 D=1</td><td>缓存控制硬件</td><td>确保旧块写回，再复用缓存行</td></tr><tr><td>缺页且无空闲物理页框</td><td>合法页面需要驻留</td><td>OS 页面置换机制</td><td>选牺牲页，必要时写回，装入目标页，重试指令</td></tr></tbody></table><p class="hint"><b>边界问题：</b>32 位地址能表达并不代表进程有权访问。页式系统通常通过有效映射和权限检查识别非法访问，而不必为每次访存使用传统“基址 + 界限”寄存器。Page Fault 本身也不等于一定要磁盘 I/O。</p></details></section>
+<section class="panel reference-card"><summary>参考：主存访问次数</summary><details class="reference-details"><table><thead><tr><th>场景</th><th>二级页表读取</th><th>数据块获取</th><th>合计逻辑主存访问</th></tr></thead><tbody><tr><td>TLB 命中 + Cache 命中</td><td>0</td><td>0</td><td><b>0</b></td></tr><tr><td>TLB 命中 + Cache 未命中</td><td>0</td><td>1</td><td><b>1</b></td></tr><tr><td>TLB 未命中 + Cache 命中</td><td>2</td><td>0</td><td><b>2</b></td></tr><tr><td>TLB 未命中 + Cache 未命中</td><td>2</td><td>1</td><td><b>3</b></td></tr></tbody></table><p class="muted">仅适用于页表项读取视为普通主存访问、数据 Cache 为单层简化模型、忽略写回和缺页处理的题设。真实 CPU 可能缓存页表项，也可能采用多级 Cache 和并行访存。</p></details></section><footer class="foot">独立 HTML · 不依赖联网或第三方脚本 · 所有交互在本地浏览器运行</footer></main>
+<script>
+const $=id=>document.getElementById(id);
+// Interactive miniature hardware table renderer. Compare synthetic entries, never scan page-table neighbours.
+function td(x){const cell=document.createElement('td');cell.textContent=String(x);return cell;}
+function row(parent,vals,cls){vals=vals.map((v,i)=>{if(typeof v!=='number')return v; const b=parent.id; if(b==='rows-tlb'&&i===0)return v.toString(2).padStart(4,'0');if(b==='rows-pde'&&i===0)return v.toString(2).padStart(10,'0');if(b==='rows-pte'&&i===0)return v.toString(2).padStart(10,'0');if(b==='rows-cache'&&i===0)return v.toString(2).padStart(8,'0');return v;});const tr=document.createElement('tr');if(cls)tr.className=cls;vals.forEach(v=>tr.appendChild(td(v)));parent.appendChild(tr);}
+function snap(id,selected,badge,message,kind){const e=$('snap-'+id);e.classList.toggle('selected',selected);$('badge-'+id).textContent=badge;const r=$('res-'+id);r.textContent=message;r.className='result '+(kind||'');}
+function renderLab(){const c=getCfg(),title=position?steps[position-1].t:'',kind=position?steps[position-1].k:'';let cur='';if(position){if(kind==='TLB')cur='tlb';else if(kind==='页表')cur='page';else if(kind==='OS'||kind==='异常')cur='os';else if(kind==='Cache')cur='cache';else if(kind==='主存')cur='ram';else if(title.includes('完成')||title.includes('不可恢复'))cur='finish';else if(kind==='MMU')cur='mmu';else cur='cpu';}
+const visited=new Set();for(let i=0;i<position;i++){const k=steps[i].k;if(k==='TLB')visited.add('tlb');if(k==='页表')visited.add('page');if(k==='Cache')visited.add('cache');if(k==='主存')visited.add('ram');if(k==='异常'||k==='OS')visited.add('os');if(k==='MMU')visited.add('mmu');if(k==='CPU')visited.add('cpu');}
+document.querySelectorAll('.flow-node').forEach(e=>{const n=e.dataset.node;e.classList.toggle('active',n===cur);e.classList.toggle('passed',n!==cur&&visited.has(n));});$('liveRoute').textContent=position?('当前步骤 '+position+'/'+steps.length+'：'+title):'当前路径：尚未开始；选择预设并按「下一步」';
+const tlbMiss=c.tlb==='miss',tb=$('rows-tlb');tb.replaceChildren();const tlbRows=[[0,1,'0x01567','0x3A012'],[1,1,tlbMiss?'0x15872':'0x12345','0x2ABCD'],[2,0,'0x12345','0x18BC0'],[3,1,'0x45678','0x19C20']];tlbRows.forEach((r,i)=>row(tb,[...r,(i===1&&!tlbMiss)?'✓ 匹配':i===2?'有效位=0':'不匹配'],i===1&&!tlbMiss?'target':i===2?'off':''));
+const hasTLB=steps.slice(0,position).some(s=>s.k==='TLB');snap('tlb',cur==='tlb',hasTLB?(tlbMiss?'未命中':'命中'):'待检查',tlbMiss?'无有效项满足 VPN=0x12345 → 遍历二级页表':c.permission==='deny'?'VPN 匹配，但权限不允许本次访问 → 异常':'VPN 匹配，获得 PPN=0x2ABCD，跳过页表',hasTLB?(tlbMiss||c.permission==='deny'?'fail':'ok'):'');
+const pd=$('rows-pde');pd.replaceChildren();const pVal=c.pde==='absent'?0:1;row(pd,[71,1,'0x00200000','未选中']);row(pd,[72,pVal,pVal?'0x00345000':'—',c.pde==='absent'?'存在位=0':c.pde==='deny'?'权限拒绝':'存在位=1'],c.pde==='ok'?'target':'badtarget');row(pd,[73,0,'—','未选中']);
+const pdeSeen=steps.slice(0,position).some(s=>s.t.includes('一级页目录'));snap('pde',cur==='page'&&title.includes('一级'),!tlbMiss?'跳过':!pdeSeen?'待检查':c.pde==='ok'?'已定位':'异常',!tlbMiss?'TLB 命中，不访问页目录':c.pde==='absent'?'PDE[72] 的 P=0 → 缺页异常':c.pde==='deny'?'PDE[72] 权限不允许 → 保护故障':'PDE[72] 有效 → 二级表基址 0x00345000',tlbMiss&&pdeSeen?(c.pde==='ok'?'ok':'fail'):'');
+const pt=$('rows-pte');pt.replaceChildren();const tVal=c.pte==='absent'?0:1;row(pt,[836,1,'0x11111','未选中']);row(pt,[837,tVal,tVal?'0x2ABCD':'—',c.pte==='absent'?'存在位=0':c.pte==='deny'?'权限拒绝':'存在位=1'],c.pte==='ok'?'target':'badtarget');row(pt,[838,0,'—','未选中']);
+const pteSeen=steps.slice(0,position).some(s=>s.t.includes('二级页表'));const canPte=tlbMiss&&c.pde==='ok';snap('pte',cur==='page'&&title.includes('二级'),!canPte?'跳过':!pteSeen?'待检查':c.pte==='ok'?'已定位':'异常',!canPte?'未走到二级页表查询':c.pte==='absent'?'PTE[837] 的 P=0 → 缺页异常':c.pte==='deny'?'PTE[837] 权限不允许 → 保护故障':'PTE[837] 有效 → PPN=0x2ABCD',canPte&&pteSeen?(c.pte==='ok'?'ok':'fail'):'');
+const cb=$('rows-cache');cb.replaceChildren();const st=c.cache;row(cb,[105,1,0,'0x01234','未选中']);row(cb,[106,st==='invalid'?0:1,st==='dirty'?1:0,st==='hit'||st==='invalid'?'0x0AAF3':'0x12345',st==='hit'?'✓ 命中':st==='invalid'?'有效位=0':st==='dirty'?'Tag≠，D=1':'Tag≠，D=0'],st==='hit'?'target':'badtarget');row(cb,[107,1,0,'0x2FFFF','未选中']);
+const cacheSeen=steps.slice(0,position).some(s=>s.k==='Cache');snap('cache',cur==='cache',!cacheSeen?'待检查':st==='hit'?'命中':'未命中',st==='hit'?'Index=106，V=1 且 Tag 相同 → 偏移 60 取 4B':st==='invalid'?'Index=106，V=0 → 装入 64B 块':st==='clean'?'Index=106，Tag 不同且 D=0 → 直接替换':'Index=106，Tag 不同且 D=1 → 先写回，再装入 64B 块',cacheSeen?(st==='hit'?'ok':'fail'):'');
+}
+
+const presets=[['全部命中',{tlb:'hit',cache:'hit'}],['TLB Miss / 页表成功',{tlb:'miss',pde:'ok',pte:'ok',cache:'hit'}],['Cache 空行缺失',{tlb:'hit',cache:'invalid'}],['Cache 干净块冲突',{tlb:'hit',cache:'clean'}],['Cache 脏块冲突',{tlb:'hit',cache:'dirty'}],['一级页目录缺失',{tlb:'miss',pde:'absent',fault:'recover'}],['二级页表缺失 / 调页',{tlb:'miss',pde:'ok',pte:'absent',fault:'recover'}],['二级页表禁止写入',{tlb:'miss',pde:'ok',pte:'deny',fault:'illegal'}],['TLB 权限拒绝',{tlb:'hit',permission:'deny',fault:'illegal'}],['非法虚拟地址',{tlb:'miss',pde:'absent',fault:'illegal'}]];
+let steps=[],position=0,outcome='',resultType='';const ids=['tlb','pde','pte','permission','fault','cache'];
+function getCfg(){return Object.fromEntries(ids.map(x=>[x,$(x).value]));}
+function putCfg(c){for(const id of ids)$(id).value=c[id]||{tlb:'hit',pde:'ok',pte:'ok',permission:'ok',fault:'recover',cache:'hit'}[id];}
+function step(t,w,d,k='硬件'){steps.push({t,w,d,k});}
+function createSteps(c){steps=[];position=0;outcome='';resultType='ok';step('CPU 发出虚拟地址','执行读取 4 B 指令，产生 VA = 0x12345ABC。','VPN = 0x12345；页内偏移 = 0xABC。','CPU');step('MMU 拆分虚拟地址','4 KB 页面 → 页内偏移 12 位；虚拟页号 20 位。','一级索引 = 72，二级索引 = 837，页内偏移 = 2748。','MMU');
+let fault='';
+if(c.tlb==='hit'){step('TLB 全相联比对：命中','将 VPN 0x12345（及地址空间上下文）与有效 TLB 表项的 Tag 比较，找到匹配项。','匹配项：VPN 0x12345 → PPN 0x2ABCD；TLB 不存完整物理地址。','TLB');if(c.permission==='deny')fault='访问权限违规：TLB 中的权限禁止本次访问';else step('TLB 权限检查：通过','访问类型与 TLB 缓存的权限相容。','无需查询一级或二级页表。','MMU');}
+else{step('TLB 全相联比对：未命中','所有有效表项中都找不到 VPN 0x12345 的对应记录。','TLB Miss ≠ Page Fault；本模型由硬件遍历二级页表。','TLB');step('查询一级页目录 PDE[72]','使用页目录物理基址 0x00100000 + 72 × 4。','PDE 物理地址 = 0x00100120。','页表');if(c.pde==='absent')fault='一级页目录项 P=0，无法继续页表遍历';else if(c.pde==='deny')fault='一级页目录项权限禁止本次访问';else {step('一级页目录：有效且允许','PDE 的 P=1，权限满足要求，返回二级页表物理基址。','二级页表基址 = 0x00345000。','页表');step('查询二级页表 PTE[837]','使用二级页表基址 0x00345000 + 837 × 4。','PTE 物理地址 = 0x00345D14。','页表');if(c.pte==='absent')fault='二级页表项 P=0，没有有效驻留映射';else if(c.pte==='deny')fault='二级页表项权限禁止本次访问';else{step('二级页表：有效且允许','PTE 的 P=1，权限满足要求，读出最终物理页框号。','PPN = 0x2ABCD。','页表');step('填充 TLB','将最终翻译结果和访问权限信息写入 TLB 供下一次使用。','VPN 0x12345 → PPN 0x2ABCD。','TLB');}}}
+if(fault){step('CPU 触发页故障 / 保护异常',fault+'。本次数据 Cache 访问不能正常完成。','CPU 保存异常所需状态，进入 OS 异常处理程序。','异常');step('操作系统判断故障性质','依据故障地址、错误码、进程映射信息判断：合法按需映射、换出页面、COW，或非法访问。','P=0 不等于一定从磁盘调页；权限故障也可能是可恢复的 COW。','OS');if(c.fault==='illegal'){step('不可恢复：向进程报告错误','地址未映射或操作不被允许，OS 不会无条件提供页面。','常见结果：SIGSEGV 等错误；本次访存失败。','OS');outcome='访问失败：操作系统判定非法映射或权限违规，不返回数据。';resultType='error';return;}else{step('修复映射或权限','如缺少二级页表则分配表页；如页面换出则选择空闲页框或置换旧页，必要时写回脏页；COW 则分配并复制页面。','本例假定最终恢复有效 PPN = 0x2ABCD；更新 PDE/PTE 与必要的 TLB 状态。','OS');step('重新执行故障指令','恢复用户态后重试刚才的读指令，而不是简单执行下一条。','重新进行地址翻译；本次假定映射有效、权限允许。','CPU');step('重试后的地址翻译成功','使用修复后的页表获得物理页框号；可填充 TLB。','PPN = 0x2ABCD。','MMU');}}
+step('MMU 拼接物理地址','PPN 占高 20 位，原页内偏移占低 12 位。','PA = 0x2ABCD000 + 0xABC = 0x2ABCDABC。','MMU');step('Cache 直接映射定位','本例 PIPT Cache：由物理地址拆出 Tag、Index、Offset。','Tag = 0x0AAF3；Index = 106；Offset = 60；Cache 第 106 行。','Cache');if(c.cache==='hit'){step('Cache 比对成功：命中','检查第 106 行 V=1 且 Tag=0x0AAF3。','从块内偏移 60～63 提取 4 B，无需向主存取此数据块。','Cache');}else{let msg=c.cache==='invalid'?'第 106 行 V=0；无有效数据。':c.cache==='clean'?'第 106 行 V=1，但 Tag 不同且 D=0。':'第 106 行 V=1，但 Tag 不同且 D=1。';step('Cache 比对失败：未命中',msg,'直接映射只能使用第 106 行；目标块尚不在此 Cache 行。','Cache');if(c.cache==='dirty')step('写回被替换的脏块','D=1 表示旧 Cache 行的数据已修改，必须保证旧数据写回下一级存储。','逻辑上先确保旧数据被保存，再安全复用缓存行。','Cache');else if(c.cache==='clean')step('丢弃旧的干净缓存副本','旧块 D=0，下一级存储已有一致副本，通常不需要写回。','释放 Cache 第 106 行以装入新块。','Cache');step('从下一级存储获取 64 B 块','按 64 B 对齐，取整个缓存块，而不只是 4 B。','块起始 0x2ABCDA80；终止 0x2ABCDABF。','主存');step('装入 Cache 并更新标记','在第 106 行装入数据，写入 Tag=0x0AAF3，设置 V=1、D=0。','按 Offset=60 取出目标 4 B；之后返回 CPU。','Cache');}
+step('访存完成，返回 CPU','本次读指令取得目标 4 B 数据。','最终物理地址 0x2ABCDABC；读操作完成。','CPU');outcome='访问成功：最终 VA 0x12345ABC → PA 0x2ABCDABC，CPU 得到 4 B 数据。';}
+function render(){const len=steps.length; $('counter').textContent=`步骤 ${position} / ${len}`;const s=steps[Math.max(0,position-1)];if(position){$('stepTitle').textContent=s.t;$('stepWhy').textContent=s.w;$('stepDetail').textContent=s.d;$('kind').textContent=s.k;}else{$('stepTitle').textContent='准备开始：CPU 将发起一次读操作';$('stepWhy').textContent='点击“下一步”，查看当前案例的逐级比对结果。';$('stepDetail').textContent='VA = 0x12345ABC；读取 4 B；页大小 4 KB。';$('kind').textContent='准备就绪';}const done=position>=len;$('outcomeText').textContent=done?outcome:'尚未完成；继续点击“下一步”。';$('outcome').className='status'+(done?(resultType==='error'?' error':' ok'):'');$('status').className='status'+(done?(resultType==='error'?' error':' ok'):'');$('status').querySelector('b').textContent=done?(resultType==='error'?'本次访存失败':'本次访存成功'):'模拟执行中';$('overview').textContent=done?outcome:`当前已执行 ${position} / ${len} 步。`;const trail=$('trail');trail.innerHTML='';steps.forEach((e,i)=>{const sp=document.createElement('span');sp.textContent=`${i+1}. ${e.k}`;sp.title=e.t;sp.className=i<position-1?'done':i===position-1?'current':'';trail.appendChild(sp)});$('prev').disabled=position===0;$('next').disabled=done;renderLab();updateSingleScreen();}
+function start(){createSteps(getCfg());render();}
+presets.forEach(([name,c],i)=>{const b=document.createElement('button');b.textContent=name;b.addEventListener('click',()=>{document.querySelectorAll('.scenarios button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');putCfg(c);start();});$('presets').appendChild(b)});
+$('apply').onclick=()=>{document.querySelectorAll('.scenarios button').forEach(x=>x.classList.remove('selected'));start()};$('next').onclick=()=>{position=Math.min(position+1,steps.length);render()};$('prev').onclick=()=>{position=Math.max(0,position-1);render()};$('all').onclick=()=>{position=steps.length;render()};$('restart').onclick=()=>{position=0;render()};document.querySelector('.scenarios button').click();
+
+
+// 单屏模式：每一步仅呈现当前相关的数据表。
+function updateSingleScreen(){
+ const s=position?steps[position-1]:null;
+ const title=s?s.t:'';
+ const kind=s?s.k:'';
+ let target='context';
+ if(kind==='TLB' && !title.includes('填充'))target='tlb';
+ else if(kind==='页表')target=title.includes('一级')?'pde':'pte';
+ else if(kind==='Cache')target='cache';
+ else if(kind==='主存')target='cache';
+ else if(kind==='MMU'&&title.includes('Cache'))target='cache';
+ document.querySelectorAll('.snapshot').forEach(x=>x.classList.toggle('shown',x.id==='snap-'+target));
+ const head=$('contextHeading'),body=$('contextText');
+ head.textContent=kind==='OS'||kind==='异常'?'异常与操作系统':kind==='MMU'?'MMU 地址翻译':kind==='CPU'?'CPU 访问':'当前访存状态';
+ body.textContent=s?(s.w+' '+s.d):'选择场景后点击「下一步」，当前表将自动切换。';
+ // 行内关键字段保留可区分的颜色，所有地址显示为二进制。
+ normalizeTerms(document.querySelector('#demo'));binaryIndexes(document.querySelector('#demo'));formatBinary(document.querySelector('#demo'));
+}
+function formattedBits(n,width,segments){const value=n.toString(2).padStart(width,'0');let offset=0;const root=document.createElement('span');root.className='binary';for(const [length,cl] of segments){const v=value.slice(offset,offset+length);const tag=document.createElement('span');tag.className='bits '+cl;tag.textContent=v.replace(/(.{4})/g,'$1 ').trim();root.appendChild(tag);offset+=length;}return root;}
+function formatBinary(root){
+ const nodes=[];const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+ while(walker.nextNode()){const node=walker.currentNode; if(node.parentElement.closest('script,style,.binary'))continue; if(/0x[0-9a-fA-F]+/.test(node.textContent))nodes.push(node);}
+ for(const node of nodes){const t=node.textContent;const fragment=document.createDocumentFragment();let last=0;
+ const re=/0x[0-9a-fA-F]+/g;let match;
+ while((match=re.exec(t))){if(match.index>last)fragment.appendChild(document.createTextNode(t.slice(last,match.index)));
+ const h=match[0],n=parseInt(h.slice(2),16),p=(node.parentElement.closest('#snap-cache')||/Cache|Tag|Index|Offset|标记|行索引/.test(t));let width=32,parts=[[20,'bits2'],[12,'bits3']];
+ if(h.toUpperCase()==='0X12345ABC')parts=[[10,'bits1'],[10,'bits2'],[12,'bits3']];
+ else if(h.toUpperCase()==='0X2ABCDABC')parts=[[20,'bits2'],[12,'bits3']];
+ else if(h.toUpperCase()==='0X12345'||h.toUpperCase()==='0X2ABCD'){width=20;parts=[[20,h.toUpperCase()==='0X12345'?'bits1':'bits2']];}
+ else if(h.toUpperCase()==='0XABC'){width=12;parts=[[12,'bits3']];}
+ else if(h.toUpperCase()==='0X0AAF3'|| (p && h.length<=7)){width=18;parts=[[18,'bits4']];}
+ else if(h.toUpperCase()==='0X048'){width=10;parts=[[10,'bits1']];}
+ else if(h.toUpperCase()==='0X345'){width=10;parts=[[10,'bits2']];}
+ else if(h.toUpperCase()==='0X6A'){width=8;parts=[[8,'bits5']];}
+ else if(h.toUpperCase()==='0X3C'){width=6;parts=[[6,'bits6']];}
+ fragment.appendChild(formattedBits(n,width,parts));last=match.index+match[0].length;
+ }
+ if(last<t.length)fragment.appendChild(document.createTextNode(t.slice(last)));node.replaceWith(fragment);
+ }
+}
+// 课本里的静态示例也统一转换二进制。
+normalizeTerms(document.querySelector('main'));binaryIndexes(document.querySelector('main'));formatBinary(document.querySelector('main'));
+
+
+function normalizeTerms(root){
+ const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[];
+ while(w.nextNode())if(!w.currentNode.parentElement.closest('script,style,.binary'))nodes.push(w.currentNode);
+ for(const n of nodes)n.textContent=n.textContent.replace(/\bV\s*=\s*([01])\b/g,'有效位=$1').replace(/\bD\s*=\s*([01])\b/g,'脏位=$1').replace(/\bP\s*=\s*([01])\b/g,'存在位=$1');
+}
+function binaryIndexes(root){
+ const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes=[];
+ while(walker.nextNode())if(!walker.currentNode.parentElement.closest('script,style,.binary') && /(索引\s*72|索引\s*837|Index\s*=\s*106|Offset\s*=\s*60|第\s*106\s*行)/.test(walker.currentNode.textContent))nodes.push(walker.currentNode);
+ for(const n of nodes){n.textContent=n.textContent.replace(/索引\s*72/g,'索引 0001001000').replace(/索引\s*837/g,'索引 1101000101').replace(/Index\s*=\s*106/g,'行索引 = 01101010').replace(/Offset\s*=\s*60/g,'块内偏移 = 111100').replace(/第\s*106\s*行/g,'第 01101010 行').replace(/索引\s*106/g,'索引 01101010').replace(/偏移\s*60/g,'偏移 111100');}
+}
+</script><script>
+// v5: compact address groups synchronized to current hardware comparison.
+(function(){
+const original=updateSingleScreen;
+updateSingleScreen=function(){original();renderAddressStage();};
+const put=(el,cl,txt)=>{const x=document.createElement('span');x.className=cl;x.textContent=txt;el.appendChild(x);return x;};
+function line(root,label,parts,note=''){
+ const row=document.createElement('div');row.className='address-row';put(row,'address-key',label);
+ const wrap=document.createElement('div');wrap.className='address-parts';
+ parts.forEach((p,i)=>{if(i&&p.arrow)put(wrap,'address-arrow',p.arrow);
+ const box=document.createElement('span');box.className='address-part '+p.bg;
+ put(box,'part-name',p.title);put(box,'part-bits',p.bits);wrap.appendChild(box);});row.appendChild(wrap);
+ if(note)put(row,'comparison',note);root.appendChild(row);
+}
+const va=[{title:'一级索引 · 10 位',bits:'0001001000',bg:'ab1'},{title:'二级索引 · 10 位',bits:'1101000101',bg:'ab2'},{title:'页内偏移 · 12 位',bits:'101010111100',bg:'ab3'}];
+const vpn=[{title:'虚拟页号 VPN · 20 位',bits:'00010010001101000101',bg:'ab1'}];
+const ppn=[{title:'物理页框号 PPN · 20 位',bits:'00101010101111001101',bg:'ab2'}];
+const pa=[{title:'物理页框号 · 20 位',bits:'00101010101111001101',bg:'ab2'},{title:'页内偏移 · 12 位',bits:'101010111100',bg:'ab3'}];
+const cache=[{title:'标记 Tag · 18 位',bits:'001010101011110011',bg:'ab4'},{title:'行索引 · 8 位',bits:'01101010',bg:'ab5'},{title:'块内偏移 · 6 位',bits:'111100',bg:'ab6'}];
+const bin=(n,w)=>n.toString(2).padStart(w,'0');
+function renderAddressStage(){
+ const root=document.getElementById('addressStage');if(!root)return;root.replaceChildren();
+ const s=position?steps[position-1]:null;if(!s){line(root,'虚拟地址 VA',va);return;}
+ const k=s.k,t=s.t;
+ if(k==='CPU'&&t.includes('发出'))line(root,'虚拟地址 VA',va);
+ else if(k==='MMU'&&t.includes('拆分')){line(root,'虚拟地址 VA',va);line(root,'虚拟页号 VPN',vpn);}
+ else if(k==='TLB'){
+  line(root,'TLB 查找键',vpn);
+  if(!t.includes('未命中'))line(root,'命中结果 PPN',ppn);
+  if(t.includes('未命中'))put(root,'comparison','没有有效表项的 VPN 与查找键相等 → 查二级页表');
+  else if(t.includes('填充'))put(root,'comparison','填充：虚拟页号 VPN → 物理页框号 PPN');
+  else put(root,'comparison','全相联：逐项比较有效位与虚拟页号，并检查权限');
+ }
+ else if(k==='页表'){
+  if(t.includes('一级')){
+   line(root,'一级页目录',[{title:'一级索引 · 10 位',bits:va[0].bits,bg:'ab1'}]);
+   line(root,'PDE 地址',[{title:'页目录基址 · 32 位',bits:bin(0x00100000,32),bg:'ab-neutral'},{title:'索引 × 4',bits:bin(72*4,12),bg:'ab1'}]);
+   put(root,'comparison','用索引定位 PDE[72]，再检查存在位与访问权限');
+  }else{
+   line(root,'二级页表',[{title:'二级索引 · 10 位',bits:va[1].bits,bg:'ab2'}]);
+   line(root,'PTE 地址',[{title:'二级页表基址 · 32 位',bits:bin(0x00345000,32),bg:'ab-neutral'},{title:'索引 × 4',bits:bin(837*4,12),bg:'ab2'}]);
+   if(t.includes('有效'))line(root,'获得页框号',ppn);
+   put(root,'comparison','用索引定位 PTE[837]，检查存在位、权限并获取页框号');
+  }
+ }
+ else if(k==='Cache'||k==='主存'){
+  line(root,'物理地址 PA',pa);line(root,'Cache 字段',cache);
+  put(root,'comparison','直接映射：行索引选中第 01101010 行，比较有效位与标记 Tag；块内偏移取数');
+ }
+ else if(k==='MMU'&&t.includes('物理地址')){line(root,'物理地址 PA',pa);line(root,'Cache 字段',cache);}
+ else if(k==='MMU'){line(root,'虚拟地址 VA',va);line(root,'物理地址 PA',pa);}
+ else if(k==='OS'||k==='异常'){line(root,'故障虚拟地址',va);}
+ else if(k==='CPU'&&t.includes('完成'))line(root,'最终物理地址',pa);
+ // Keep only the explanatory sentence, not a second full address formula.
+ const detail=document.getElementById('stepDetail');
+ detail.classList.toggle('show',k==='OS'||k==='异常');
+ const why=document.getElementById('stepWhy');
+ const concise={
+ 'CPU 发出虚拟地址':'读取 4 B，交给 MMU 翻译。',
+ 'MMU 拆分虚拟地址':'按 10 / 10 / 12 位拆分地址。',
+ 'TLB 全相联比对：命中':'有效位=1、VPN 相等，得到 PPN。',
+ 'TLB 全相联比对：未命中':'没有匹配表项，硬件遍历二级页表。',
+ 'TLB 权限检查：通过':'权限允许；无需遍历页表。',
+ '查询一级页目录 PDE[72]':'通过页目录基址与索引确定 PDE 地址。',
+ '一级页目录：有效且允许':'存在位=1，获得二级页表基址。',
+ '查询二级页表 PTE[837]':'通过二级页表基址与索引确定 PTE 地址。',
+ '二级页表：有效且允许':'存在位=1，权限允许，获得 PPN。',
+ '填充 TLB':'缓存最终 VPN → PPN 映射及权限。',
+ 'MMU 拼接物理地址':'PPN 与原页内偏移拼接。',
+ 'Cache 直接映射定位':'Index 选行；比较有效位、Tag。',
+ 'Cache 比对成功：命中':'有效位=1、Tag 相同，按 Offset 取数据。',
+ 'Cache 比对失败：未命中':'有效位=0 或 Tag 不相等；从下一级取块。',
+ '从下一级存储获取 64 B 块':'读取完整 64 B 块。',
+ '装入 Cache 并更新标记':'装入数据块，更新 Tag、有效位和脏位。',
+ '访存完成，返回 CPU':'取得目标 4 B。'
+ };
+ if(concise[t])why.textContent=concise[t];
+}
+renderAddressStage();
+})();
+</script></body></html>

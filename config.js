@@ -124,6 +124,10 @@ module.exports = {
       {
         "text": "外部排序完全指南",
         "link": "/408/external-sort.html"
+      },
+      {
+        "text": "32 位访存全流程 · 交互教材",
+        "link": "/408/访存流程.html"
       }
     ],
     "/算法/": [
