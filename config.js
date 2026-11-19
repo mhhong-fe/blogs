@@ -126,6 +126,10 @@ module.exports = {
         "link": "/408/external-sort.html"
       },
       {
+        "text": "408 · 2022 第43题 | CPU 数据通路与控制通路交互教材",
+        "link": "/408/数据通路-控制通路.html"
+      },
+      {
         "text": "32 位访存全流程 · 交互教材",
         "link": "/408/访存流程.html"
       }
