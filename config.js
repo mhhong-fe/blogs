@@ -22,7 +22,7 @@ module.exports = {
     },
     {
       "text": "408",
-      "link": "/408/external-sort.html"
+      "link": "/408/408_PV同步互斥模板_交互教材.html"
     },
     {
       "text": "算法",
@@ -121,6 +121,14 @@ module.exports = {
       }
     ],
     "/408/": [
+      {
+        "text": "408 操作系统 · PV 同步互斥模板",
+        "link": "/408/408_PV同步互斥模板_交互教材.html"
+      },
+      {
+        "text": "408 数据结构 · C 语言算法模板",
+        "link": "/408/408_数据结构算法代码模板_交互教材.html"
+      },
       {
         "text": "外部排序完全指南",
         "link": "/408/external-sort.html"
